@@ -1,14 +1,19 @@
 <template>
-  <TailwindForm />
+  <LogInPage />
+  <MenuBottom />
 </template>
 
 <script>
-import TailwindForm from './components/TailwindForm.vue';
+import MenuBottom from './views/MenuBottom.vue';
+
+import LogInPage from './views/LogInPage.vue';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 export default {
   name: 'App',
   components: {
-    TailwindForm,
+    LogInPage,
+    MenuBottom,
   },
 };
 </script>
@@ -19,6 +24,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
 </style>
