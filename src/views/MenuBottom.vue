@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-screen" data-test="bottom-navigation">
+  <div id="bottom-navigation" data-test="bottom-navigation">
     <section
       id="bottom-navigation"
       class="block fixed inset-x-0 bottom-0 z-10 bh-white shadow"
