@@ -1,3 +1,5 @@
+const tailwindcssForms = require('@tailwindcss/forms');
+
 module.exports = {
   content: [
     './src/**/*.{vue,js,ts,jsx,tsx}',
@@ -6,7 +8,6 @@ module.exports = {
     extend: {},
   },
   plugins: [
-    // eslint-disable-next-line global-require
-    require('@tailwindcss/forms'),
+    tailwindcssForms,
   ],
 };
