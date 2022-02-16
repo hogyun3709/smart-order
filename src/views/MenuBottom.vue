@@ -22,30 +22,33 @@
             pb-1
           "
         >
-          <font-awesome-icon :class="menu.icon" data-test="nav-menu-icon" />
+          <span data-test="nav-menu-icon">
+            <component :is="menu.icon" class="w-5 h-5 inline-block" />
+          </span>
           <p data-test="nav-menu-text">{{ menu.text }}</p>
         </a>
       </div>
     </section>
   </div>
-  <div></div>
 </template>
 
 <script>
+import { HomeIcon, ShoppingCartIcon, CogIcon } from '@heroicons/vue/outline';
+
 export default {
   data() {
     return {
       menus: [
         {
-          icon: 'fas fa-home',
+          icon: HomeIcon,
           text: '홈',
         },
         {
-          icon: 'fas fa-shopping-cart',
+          icon: ShoppingCartIcon,
           text: '장바구니',
         },
         {
-          icon: 'fa-solid fa-gear',
+          icon: CogIcon,
           text: '설정',
         },
       ],

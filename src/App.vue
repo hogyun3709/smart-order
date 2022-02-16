@@ -5,9 +5,7 @@
 
 <script>
 import MenuBottom from './views/MenuBottom.vue';
-
 import LogInPage from './views/LogInPage.vue';
-import '@fortawesome/fontawesome-free/css/all.css';
 
 export default {
   name: 'App',
