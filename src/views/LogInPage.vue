@@ -6,7 +6,14 @@
         for="name"
         data-test="username-label"
       >
-        <span class="text-gray-700" data-test="username-title">아이디</span>
+        <span
+          class="
+            text-gray-700
+            after:content-['*'] after:ml-0.5 after:text-red-500
+          "
+          data-test="username-title"
+          >아이디</span
+        >
         <input
           type="text"
           class="
@@ -27,7 +34,14 @@
         for="name"
         data-test="password-label"
       >
-        <span class="text-gray-700" data-test="password-title">패스워드</span>
+        <span
+          class="
+            text-gray-700
+            after:content-['*'] after:ml-0.5 after:text-red-500
+          "
+          data-test="password-title"
+          >패스워드</span
+        >
         <input
           type="password"
           class="
