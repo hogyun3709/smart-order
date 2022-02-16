@@ -39,5 +39,5 @@ describe('MenuBottom.vue 파일의 unit test 입니다', () => {
   });
   it('checks menus icons successfully render', () => {
     /* Icon 에 대한 존재 TC 는? */
-  })
+  });
 });
