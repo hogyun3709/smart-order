@@ -1,17 +1,16 @@
 <template>
-  <LogInPage />
-  <MenuBottom />
+  <div class="w-screen h-screen">
+    <DrinkInfo />
+  </div>
 </template>
 
 <script>
-import MenuBottom from './views/MenuBottom.vue';
-import LogInPage from './views/LogInPage.vue';
+import DrinkInfo from './components/DrinkInfo.vue';
 
 export default {
   name: 'App',
   components: {
-    LogInPage,
-    MenuBottom,
+    DrinkInfo,
   },
 };
 </script>
@@ -22,7 +21,5 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 100px;
-  margin-bottom: 100px;
 }
 </style>

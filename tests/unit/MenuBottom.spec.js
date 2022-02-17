@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { HomeIcon, ShoppingCartIcon, CogIcon } from '@heroicons/vue/outline';
-import MenuBottom from '@/views/MenuBottom.vue';
+import MenuBottom from '@/components/MenuBottom.vue';
 
 describe('MenuBottom.vue 파일의 unit test 입니다', () => {
   const menus = [
