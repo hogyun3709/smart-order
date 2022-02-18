@@ -57,6 +57,40 @@
         {{ priceWithFormat(drink.defaultPrice) }}
       </span>
     </div>
+    <div data-test="drink-select-temperature-container">
+      <button
+        class="
+          bg-white-500
+          hover:bg-red-700 hover:text-white
+          text-black
+          font-bold
+          py-2
+          rounded
+          w-1/2
+          border
+        "
+        data-test="drink-select-hot"
+        @click="setTemperature('HOT')"
+      >
+        HOT
+      </button>
+      <button
+        class="
+          bg-white-500
+          hover:bg-blue-700 hover:text-white
+          text-black
+          font-bold
+          py-2
+          rounded
+          w-1/2
+          border
+        "
+        data-test="drink-select-ice"
+        @click="setTemperature('ICE')"
+      >
+        ICE
+      </button>
+    </div>
   </div>
   <MenuBottom />
 </template>
@@ -80,12 +114,16 @@ export default {
         description:
           '풍부하고 진한 에스프레소가 신선한 스팀 밀크를 만나 부드러워진 커피 위에 우유 거품을 살짝 얹은 대표적인 카페 라떼',
         defaultPrice: 5000,
+        temperature: null,
       },
     };
   },
   methods: {
     priceWithFormat(price) {
       return `${price.toLocaleString()}원`;
+    },
+    setTemperature(value) {
+      this.drink.temperature = value;
     },
   },
 };
