@@ -185,3 +185,31 @@ describe('drink-select-size-container 부분의 unit test 입니다 - coverage f
 		}
 	});
 });
+
+describe('drink-select-cup-type-container 부분의 unit test 입니다 - coverage for feature requirement #9', () => {
+	const wrapper = mount(DrinkInfo);
+
+	it('verifies drink-select-cup-type-container', () => {
+		expect(wrapper.find('div[data-test="drink-select-cup-type-container"]').exists()).toBe(true);
+	});
+	it('displays title of drink size', () => {
+		const testCupType = '컵 선택';
+
+		expect(wrapper.find('h4[data-test="drink-select-cup-type-title"]').text()).toBe(testCupType);
+	});
+	it('renders types of cup listed in the drink data property', async () => {
+		const testCupTypes = ['매장 컵', '개인 컵', '일회용 컵'];
+
+		await wrapper.setData({
+			drink: {
+				cupTypes: testCupTypes,
+			},
+		});
+
+		for (let i = 0; i < testCupTypes.length; i += 1) {
+			const buttonWrapper = wrapper.get(`button[data-test="drink-select-${testCupTypes[i]}"]`);
+
+			expect(buttonWrapper.text()).toEqual(testCupTypes[i]);
+		}
+	});
+});
