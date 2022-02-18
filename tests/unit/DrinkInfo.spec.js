@@ -135,7 +135,6 @@ describe('drink-select-temperature-container 부분의 unit test 입니다 - cov
 		expect(wrapper.find('button[data-test="drink-select-ice"]').exists()).toBe(true);
 		expect(wrapper.find('button[data-test="drink-select-ice"]').text()).toEqual('ICE');
 	});
-
 });
 
 describe('drink-select-size-container 부분의 unit test 입니다 - coverage for feature requirement #8', () => {
@@ -163,20 +162,20 @@ describe('drink-select-size-container 부분의 unit test 입니다 - coverage f
 				icon: 'fa-solid fa-mug-saucer fa-xl',
 				text: 'Venti',
 			},
-		]
+		];
 
 		await wrapper.setData({
 			drink: {
-				sizes: testSizes
-			}
-		})
+				sizes: testSizes,
+			},
+		});
 
 		for (let i = 0; i < testSizes.length; i += 1) {
 			const buttonWrapper = wrapper.get(`button[data-test="drink-size-${testSizes[i].text}"]`);
-			const iconWrapper = wrapper.get(`i[data-test="drink-size-${testSizes[i].icon}"]`)
+			const iconWrapper = wrapper.get(`i[data-test="drink-size-${testSizes[i].icon}"]`);
 
-			expect(buttonWrapper.text()).toEqual(testSizes[i].text)
-			expect(iconWrapper.html()).toContain(testSizes[i].icon)
+			expect(buttonWrapper.text()).toEqual(testSizes[i].text);
+			expect(iconWrapper.html()).toContain(testSizes[i].icon);
 		}
-	})
-})
+	});
+});
