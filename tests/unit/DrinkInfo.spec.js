@@ -144,6 +144,12 @@ describe('drink-select-size-container 부분의 unit test 입니다 - coverage f
 		expect(wrapper.find('div[data-test="drink-select-size-container"]').exists()).toBe(true);
 	});
 
+	it('displays title of drink size', () => {
+		const testSizeTitle = '사이즈';
+
+		expect(wrapper.find('h4[data-test="drink-select-size-title"]').text()).toBe(testSizeTitle);
+	});
+
 	it('checks rendering every single size of drink with text and icon from given data property', async () => {
 		const testSizes = [
 			{
