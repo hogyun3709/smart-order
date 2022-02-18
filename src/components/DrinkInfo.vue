@@ -105,6 +105,26 @@
         {{ size.text }}
       </button>
     </div>
+    <div data-test="drink-select-cup-type-container">
+      <h4 class="my-3" data-test="drink-select-cup-type-title">컵 선택</h4>
+      <button
+        v-for="cupType in drink.cupTypes"
+        :key="cupType"
+        class="
+          bg-white-500
+          hover:bg-red-700 hover:text-white
+          text-black
+          font-bold
+          py-2
+          rounded
+          w-1/3
+          border
+        "
+        :data-test="`drink-select-${cupType}`"
+      >
+        {{ cupType }}
+      </button>
+    </div>
   </div>
   <MenuBottom />
 </template>
@@ -147,6 +167,7 @@ export default {
             text: 'Venti',
           },
         ],
+        cupTypes: ['매장 컵', '개인 컵', '일회용 컵'],
       },
     };
   },
