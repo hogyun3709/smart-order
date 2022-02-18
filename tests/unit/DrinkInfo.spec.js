@@ -51,7 +51,7 @@ describe('drink-image-container 부분의 unit test 입니다 - coverage for req
   });
 });
 
-describe('drink-description-container 부분의 unit test 입니다 - coverage fro requirements #3 ~ #6', () => {
+describe('drink-description-container 부분의 unit test 입니다 - coverage for requirements #3 ~ #6', () => {
   const wrapper = mount(DrinkInfo);
 
   it('renders drink-description-container for rendering drink description details', () => {
@@ -118,5 +118,21 @@ describe('drink-description-container 부분의 unit test 입니다 - coverage f
 
     expect(wrapper.find('span[data-test="drink-default-price"]').exists()).toBe(true);
     expect(wrapper.find('span[data-test="drink-default-price"]').text()).toContain(testPriceWithFormat);
+  });
+});
+
+describe('drink-select-temperature-container 부분의 unit test 입니다 - coverage for feature requirement #7 ', () => {
+  const wrapper = mount(DrinkInfo);
+
+  it('verifies drink-select-temperature-container', () => {
+    expect(wrapper.find('div[data-test="drink-select-temperature-container"]').exists()).toBe(true);
+  });
+
+  it('renders HOT and ICE buttons with valid text', () => {
+    expect(wrapper.find('button[data-test="drink-select-hot"]').exists()).toBe(true);
+    expect(wrapper.find('button[data-test="drink-select-hot"]').text()).toEqual('HOT');
+
+    expect(wrapper.find('button[data-test="drink-select-ice"]').exists()).toBe(true);
+    expect(wrapper.find('button[data-test="drink-select-ice"]').text()).toEqual('ICE');
   });
 });
