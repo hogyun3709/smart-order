@@ -6,6 +6,7 @@
 
 <script>
 import DrinkInfo from './components/DrinkInfo.vue';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 export default {
   name: 'App',
