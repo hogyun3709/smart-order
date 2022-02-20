@@ -192,6 +192,7 @@ describe('drink-select-cup-type-container 부분의 unit test 입니다 - covera
 	it('verifies drink-select-cup-type-container', () => {
 		expect(wrapper.find('div[data-test="drink-select-cup-type-container"]').exists()).toBe(true);
 	});
+
 	it('displays title of drink size', () => {
 		const testCupType = '컵 선택';
 
@@ -271,5 +272,96 @@ describe('drink-personal-option-container 부분의 unit test 입니다 - covera
 		await decreaseButton.trigger('click');
 
 		expect(showQuantityWrapper.text()).toContain(testDefaultQuantity.toString());
+	});
+});
+
+describe('drink-draft-order-container 부분의 unit test 입니다 - coverage for feature requirement # 11', () => {
+	const wrapper = mount(DrinkInfo);
+
+	const drinkDecButton = wrapper.get('button[data-test="drink-counter-decrease"]');
+	const drinkIncButton = wrapper.get('button[data-test="drink-counter-increase"]');
+	const drinkQuantity = wrapper.get('span[data-test="drink-quantity"]');
+	const optionDecButton = wrapper.get('button[data-test="decrease-button"]');
+	const optionIncButton = wrapper.get('button[data-test="increase-button"]');
+
+	it('renders drink-draft-order-container', () => {
+		expect(wrapper.find('div[data-test="drink-draft-order-container"]').exists()).toBe(true);
+	});
+
+	test('음료의 수량을 정할 수 있는 UI의 존재여부를 확인합니다', () => {
+		expect(wrapper.find('div[data-test="drink-quantity-counter"]').exists()).toBe(true);
+	});
+	test('음료의 수량을 정할 수 있는 UI의 포함 요소들의 존재여부를 확인합니다', () => {
+		expect(drinkDecButton.exists()).toBe(true);
+		expect(drinkIncButton.exists()).toBe(true);
+		expect(drinkQuantity.exists()).toBe(true);
+	});
+	test('주문의 최종가격의 정보를 담을 요소의 존재여부를 확인합니다', () => {
+		expect(wrapper.find('div[data-test="drink-final-price"]').exists()).toBe(true);
+	});
+
+	test('해당 음료의 즐겨찾기를 등록할수 있는 버튼의 존재여부를 확인합니다', () => {
+		expect(wrapper.find('button[data-test="drink-is-favorite"]').exists()).toBe(true);
+	});
+
+	test('해당 음료를 장바구니에 담을수 있는 버튼의 존재 여부를 확인합니다', () => {
+		expect(wrapper.find('button[data-test="drink-to-cart"]').exists()).toBe(true);
+	});
+
+	test('해당 음료에 대한 주문을 진행할수 있는 버튼의 존재여부를 확인합니다', () => {
+		expect(wrapper.find('button[data-test="drink-order"]').exists()).toBe(true);
+	});
+
+	test('음료의 수량 증가 및 감소 버튼이 작동하는지', async () => {
+		const testDrinkQuantity = 1;
+		const testOuputQuantity = 2;
+		await wrapper.setData({
+			drink: {
+				defaultQuantity: testDrinkQuantity,
+			},
+		});
+		expect(drinkQuantity.text()).toContain(testDrinkQuantity.toString());
+		await drinkIncButton.trigger('click');
+		expect(drinkQuantity.text()).toContain(testOuputQuantity.toString());
+		await drinkDecButton.trigger('click');
+		expect(drinkQuantity.text()).toContain(testDrinkQuantity.toString());
+	});
+
+	test('음료의 최종가격이 음료의 수량의 변경, 퍼스널 옵션의 수량의 변경에도 올바르게 렌더링 되는지', async () => {
+		const testDrinkQuantity = 1;
+		const testOptionQuantity = 1;
+		const finalPriceWrapper = wrapper.get('div[data-test="drink-final-price"]');
+		const finalPrice = 5000;
+		const oneOptionAddPrice = 5500;
+		const oneOptionTwoDrinkAddPrice = 11000;
+
+		await wrapper.setData({
+			drink: {
+				personalOption: {
+					espressoShot: {
+						defaultQuantity: testOptionQuantity,
+					},
+				},
+				defaultQuantity: testDrinkQuantity,
+			},
+		});
+
+		expect(finalPriceWrapper.text()).toBe(`${finalPrice.toLocaleString()}원`);
+
+		await optionIncButton.trigger('click');
+
+		expect(finalPriceWrapper.text()).toBe(`${oneOptionAddPrice.toLocaleString()}원`);
+
+		await drinkIncButton.trigger('click');
+
+		expect(finalPriceWrapper.text()).toBe(`${oneOptionTwoDrinkAddPrice.toLocaleString()}원`);
+
+		await drinkDecButton.trigger('click');
+
+		expect(finalPriceWrapper.text()).toBe(`${oneOptionAddPrice.toLocaleString()}원`);
+
+		await optionDecButton.trigger('click');
+
+		expect(finalPriceWrapper.text()).toBe(`${finalPrice.toLocaleString()}원`);
 	});
 });
