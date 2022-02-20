@@ -213,3 +213,63 @@ describe('drink-select-cup-type-container 부분의 unit test 입니다 - covera
 		}
 	});
 });
+
+describe('drink-personal-option-container 부분의 unit test 입니다 - coverage for feature requirement # 10', () => {
+	const wrapper = mount(DrinkInfo);
+
+	it('finds drink-personal-option-container', () => {
+		expect(wrapper.find('div[data-test="drink-personal-option-container"]').exists()).toBe(true);
+	});
+
+	it('renders drink-personal-option-title element with following text', () => {
+		const testTitle = '퍼스널 옵션';
+		const titleWrapper = wrapper.get('h4[data-test="drink-personal-option-title"]');
+
+		expect(titleWrapper.exists()).toBe(true);
+		expect(titleWrapper.text()).toEqual(testTitle);
+	});
+
+	it('tests personal option type name, from given data', async () => {
+		const testName = '테스트 에스프레소 샷';
+
+		await wrapper.setData({
+			drink: {
+				personalOption: {
+					espressoShot: {
+						name: testName,
+					},
+				},
+			},
+		});
+
+		expect(wrapper.find('div[data-test="drink-personal-option-name"]').text()).toBe(testName);
+	});
+
+	it('tests personal option quantity changes', async () => {
+		const testDefaultQuantity = 1;
+		const decreaseButton = wrapper.get('button[data-test="decrease-button"]');
+		const increaseButton = wrapper.get('button[data-test="increase-button"]');
+		const showQuantityWrapper = wrapper.get('span[data-test="personal-option-quantity"]');
+		const testOutputForIncrement = 2;
+
+		await wrapper.setData({
+			drink: {
+				personalOption: {
+					espressoShot: {
+						defaultQuantity: testDefaultQuantity,
+					},
+				},
+			},
+		});
+
+		expect(showQuantityWrapper.text()).toContain(testDefaultQuantity.toString());
+
+		await increaseButton.trigger('click');
+
+		expect(showQuantityWrapper.text()).toContain(testOutputForIncrement.toString());
+
+		await decreaseButton.trigger('click');
+
+		expect(showQuantityWrapper.text()).toContain(testDefaultQuantity.toString());
+	});
+});
