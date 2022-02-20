@@ -1,5 +1,5 @@
 <template>
-  <div class="grid content-center">
+  <div class="grid content-center max-w-screen-sm mx-auto min-w-375">
     <DrinkInfo />
   </div>
 </template>
@@ -17,10 +17,7 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+.min-w-375 {
+  min-width: 375px;
 }
 </style>

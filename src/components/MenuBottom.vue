@@ -1,8 +1,8 @@
 <template>
-  <div id="bottom-navigation" data-test="bottom-navigation">
+  <div class="" id="bottom-navigation" data-test="bottom-navigation">
     <section
       id="bottom-navigation"
-      class="block fixed inset-x-0 bottom-0 z-10 bh-white shadow"
+      class="fixed inset-x-0 bottom-0 bg-white max-w-screen-sm mx-auto"
       data-test="bottom-navigation-section"
     >
       <div class="flex justify-between" data-test="bottom-navigation-flex">
