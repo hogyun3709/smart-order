@@ -306,13 +306,13 @@ export default {
       return this.drink.defaultQuantity;
     },
     finalPriceWithFormat() {
-      const option = this.drink.personalOption;
       const price = this.drink.defaultPrice;
       const quantity = this.drink.defaultQuantity;
-      const optionPrice = option.espressoShot.price;
-      const optionQuantity = option.espressoShot.defaultQuantity;
-      const x = optionPrice * 1;
-      const finalPrice = (price + optionPrice * optionQuantity - x) * quantity;
+      const optPrice = this.drink.personalOption.espressoShot.price;
+      const optQuant = this.drink.personalOption.espressoShot.defaultQuantity;
+      const optDefault = optPrice * 1;
+
+      const finalPrice = (price + optPrice * optQuant - optDefault) * quantity;
 
       return `${finalPrice.toLocaleString()}원`;
     },
