@@ -1,5 +1,9 @@
 <template>
-  <div id="drink-info" class="max-w-full mx-5" data-test="drink-info">
+  <div
+    id="drink-info"
+    class="max-w-full mx-5 inline-block"
+    data-test="drink-info"
+  >
     <div class="relative" data-test="drink-image-container">
       <img
         class="aspect-square"
@@ -125,6 +129,42 @@
         {{ cupType }}
       </button>
     </div>
+    <div
+      class="mb-16 grid grid-cols-6"
+      data-test="drink-personal-option-container"
+    >
+      <h4
+        class="my-3 col-start-1 col-end-3"
+        data-test="drink-personal-option-title"
+      >
+        퍼스널 옵션
+      </h4>
+      <div class="col-start-1 col-end-3" data-test="drink-personal-option-name">
+        {{ drink.personalOption.espressoShot.name }}
+      </div>
+      <div
+        class="col-start-8 col-end-12"
+        data-test="drink-personal-option-espresso-counter"
+      >
+        <button
+          class="border-2 rounded-full w-8 h-8"
+          @click="decrementEspressoShot()"
+          data-test="decrease-button"
+        >
+          -
+        </button>
+        <span class="mx-2" data-test="personal-option-quantity">
+          {{ personalOptionQuantity }}
+        </span>
+        <button
+          class="border-2 rounded-full w-8 h-8"
+          @click="incrementEspressoShot()"
+          data-test="increase-button"
+        >
+          +
+        </button>
+      </div>
+    </div>
   </div>
   <MenuBottom />
 </template>
@@ -168,6 +208,13 @@ export default {
           },
         ],
         cupTypes: ['매장 컵', '개인 컵', '일회용 컵'],
+        personalOption: {
+          espressoShot: {
+            name: '에스프레소 샷',
+            defaultQuantity: 1,
+            price: 500,
+          },
+        },
       },
     };
   },
@@ -177,6 +224,17 @@ export default {
     },
     setTemperature(value) {
       this.drink.temperature = value;
+    },
+    incrementEspressoShot() {
+      this.drink.personalOption.espressoShot.defaultQuantity += 1;
+    },
+    decrementEspressoShot() {
+      this.drink.personalOption.espressoShot.defaultQuantity -= 1;
+    },
+  },
+  computed: {
+    personalOptionQuantity() {
+      return this.drink.personalOption.espressoShot.defaultQuantity;
     },
   },
 };
