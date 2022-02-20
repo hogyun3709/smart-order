@@ -101,7 +101,12 @@
         v-for="size in drink.sizes"
         :key="size.text"
         :data-test="`drink-size-${size.text}`"
-        class="w-1/4 border"
+        class="
+          w-1/4
+          border
+          hover:bg-teal-500 hover:text-white
+          active:bg-teal-500/75
+        "
       >
         <p class="my-1">
           <i :class="size.icon" :data-test="`drink-size-${size.icon}`" />
@@ -116,7 +121,8 @@
         :key="cupType"
         class="
           bg-white-500
-          hover:bg-red-700 hover:text-white
+          hover:bg-cyan-500 hover:text-white
+          active:bg-cyan-500/75
           text-black
           font-bold
           py-2
