@@ -129,17 +129,14 @@
         {{ cupType }}
       </button>
     </div>
-    <div
-      class="mb-16 grid grid-cols-6"
-      data-test="drink-personal-option-container"
-    >
+    <div class="grid grid-cols-6" data-test="drink-personal-option-container">
       <h4
-        class="my-3 col-start-1 col-end-3"
+        class="my-3 col-start-1 col-end-7"
         data-test="drink-personal-option-title"
       >
         퍼스널 옵션
       </h4>
-      <div class="col-start-1 col-end-3" data-test="drink-personal-option-name">
+      <div class="col-start-1 col-end-7" data-test="drink-personal-option-name">
         {{ drink.personalOption.espressoShot.name }}
       </div>
       <div
@@ -165,12 +162,67 @@
         </button>
       </div>
     </div>
+    <hr class="my-3" />
+    <div
+      class="mx-4 mb-16 grid grid-cols-6"
+      data-test="drink-draft-order-container"
+    >
+      <div class="col-start-1 col-end-7" data-test="drink-quantity-counter">
+        <button
+          class="border-2 rounded-full w-8 h-8"
+          @click="decrementDrinkQuantity()"
+          data-test="drink-counter-decrease"
+        >
+          -
+        </button>
+        <span class="mx-2" data-test="drink-quantity">{{ drinkQuantity }}</span>
+        <button
+          class="border-2 rounded-full w-8 h-8"
+          @click="incrementDrinkQuantity()"
+          data-test="drink-counter-increase"
+        >
+          +
+        </button>
+      </div>
+      <div
+        class="mx-2 text-xl col-start-8 col-end-12"
+        data-test="drink-final-price"
+      >
+        {{ finalPriceWithFormat }}
+      </div>
+      <button class="my-4 col-start-1 col-end-2" data-test="drink-is-favorite">
+        <HeartIcon class="h-5 w-5" />
+      </button>
+      <div class="col-start-7 col-end-12">
+        <button
+          class="mx-2 border-2 rounded-full w-16 h-8"
+          data-test="drink-to-cart"
+        >
+          담기
+        </button>
+        <button
+          class="
+            bg-emerald-400
+            hover:bg-emerald-600
+            active:bg-emerald-800
+            text-white
+            border-2
+            rounded-full
+            w-32
+            h-8
+          "
+          data-test="drink-order"
+        >
+          주문하기
+        </button>
+      </div>
+    </div>
   </div>
   <MenuBottom />
 </template>
 
 <script>
-import { ShareIcon, ChevronLeftIcon } from '@heroicons/vue/outline';
+import { ShareIcon, ChevronLeftIcon, HeartIcon } from '@heroicons/vue/outline';
 import MenuBottom from '@/components/MenuBottom.vue';
 
 export default {
@@ -178,6 +230,7 @@ export default {
     MenuBottom,
     ShareIcon,
     ChevronLeftIcon,
+    HeartIcon,
   },
   data() {
     return {
@@ -215,6 +268,7 @@ export default {
             price: 500,
           },
         },
+        defaultQuantity: 1,
       },
     };
   },
@@ -231,10 +285,30 @@ export default {
     decrementEspressoShot() {
       this.drink.personalOption.espressoShot.defaultQuantity -= 1;
     },
+    incrementDrinkQuantity() {
+      this.drink.defaultQuantity += 1;
+    },
+    decrementDrinkQuantity() {
+      this.drink.defaultQuantity -= 1;
+    },
   },
   computed: {
     personalOptionQuantity() {
       return this.drink.personalOption.espressoShot.defaultQuantity;
+    },
+    drinkQuantity() {
+      return this.drink.defaultQuantity;
+    },
+    finalPriceWithFormat() {
+      const option = this.drink.personalOption;
+      const price = this.drink.defaultPrice;
+      const quantity = this.drink.defaultQuantity;
+      const optionPrice = option.espressoShot.price;
+      const optionQuantity = option.espressoShot.defaultQuantity;
+      const x = optionPrice * 1;
+      const finalPrice = (price + optionPrice * optionQuantity - x) * quantity;
+
+      return `${finalPrice.toLocaleString()}원`;
     },
   },
 };
