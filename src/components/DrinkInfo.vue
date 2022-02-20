@@ -6,7 +6,7 @@
   >
     <div class="relative" data-test="drink-image-container">
       <img
-        class="aspect-square"
+        class="w-full aspect-square"
         :src="drink.image"
         alt="drink-image"
         data-test="drink-image"
