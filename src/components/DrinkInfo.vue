@@ -66,6 +66,7 @@
         class="
           bg-white-500
           hover:bg-red-700 hover:text-white
+          active:bg-red-700/75
           text-black
           font-bold
           py-2
@@ -73,6 +74,7 @@
           w-1/2
           border
         "
+        :class="drink.temperature === 'HOT' ? 'bg-red-700 !text-white' : ''"
         data-test="drink-select-hot"
         @click="setTemperature('HOT')"
       >
@@ -82,6 +84,7 @@
         class="
           bg-white-500
           hover:bg-blue-700 hover:text-white
+          active:bg-blue-700/75
           text-black
           font-bold
           py-2
@@ -89,6 +92,7 @@
           w-1/2
           border
         "
+        :class="drink.temperature === 'ICE' ? 'bg-blue-700 !text-white' : ''"
         data-test="drink-select-ice"
         @click="setTemperature('ICE')"
       >
