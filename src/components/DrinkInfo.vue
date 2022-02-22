@@ -154,7 +154,8 @@
         data-test="drink-personal-option-espresso-counter"
       >
         <button
-          class="border-2 rounded-full w-8 h-8"
+          class="border-2 border-black rounded-full w-8 h-8 disabled:opacity-25"
+          :disabled="drink.personalOption.espressoShot.defaultQuantity <= 1"
           @click="decrementEspressoShot()"
           data-test="decrease-button"
         >
@@ -164,7 +165,8 @@
           {{ personalOptionQuantity }}
         </span>
         <button
-          class="border-2 rounded-full w-8 h-8"
+          class="border-2 border-black rounded-full w-8 h-8 disabled:opacity-25"
+          :disabled="drink.personalOption.espressoShot.defaultQuantity >= 10"
           @click="incrementEspressoShot()"
           data-test="increase-button"
         >
@@ -179,7 +181,8 @@
     >
       <div class="col-start-1 col-end-7" data-test="drink-quantity-counter">
         <button
-          class="border-2 rounded-full w-8 h-8"
+          class="border-2 border-black rounded-full w-8 h-8 disabled:opacity-25"
+          :disabled="drink.defaultQuantity <= 1"
           @click="decrementDrinkQuantity()"
           data-test="drink-counter-decrease"
         >
@@ -187,7 +190,8 @@
         </button>
         <span class="mx-2" data-test="drink-quantity">{{ drinkQuantity }}</span>
         <button
-          class="border-2 rounded-full w-8 h-8"
+          class="border-2 border-black rounded-full w-8 h-8 disabled:opactiy-25"
+          :disabled="drink.defaultQuantity >= 10"
           @click="incrementDrinkQuantity()"
           data-test="drink-counter-increase"
         >
