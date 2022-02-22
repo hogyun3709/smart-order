@@ -48,16 +48,25 @@
         {{ drink.name }}
       </span>
       <span
-        v-if="drink.isBest"
-        class="text-red-500 text-xs italic"
-        data-test="drink-isBest"
+        class="text-xs italic inline-block mx-2 align-text-top"
+        :class="{
+          'text-red-500': drink.preference === 'Best',
+          'text-green-500': drink.preference === 'New',
+        }"
+        data-test="drink-preference"
       >
-        Best
+        {{ drink.preference }}
       </span>
+      <p class="mb-2 text-gray-400 text-xs">
+        {{ drink.nameEng }}
+      </p>
       <p class="text-sm" data-test="drink-description">
         {{ drink.description }}
       </p>
-      <span class="text-lg font-bold my-2" data-test="drink-default-price">
+      <span
+        class="my-3 inline-block text-lg font-bold my-2"
+        data-test="drink-default-price"
+      >
         {{ priceWithFormat(drink.defaultPrice) }}
       </span>
     </div>
@@ -251,7 +260,8 @@ export default {
       drink: {
         image: 'https://coffee.alexflipnote.dev/random',
         name: '카페라떼',
-        isBest: true,
+        nameEng: 'Caffe Latte',
+        preference: 'Best',
         description:
           '풍부하고 진한 에스프레소가 신선한 스팀 밀크를 만나 부드러워진 커피 위에 우유 거품을 살짝 얹은 대표적인 카페 라떼',
         defaultPrice: 5000,

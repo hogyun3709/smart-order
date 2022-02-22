@@ -70,27 +70,29 @@ describe('drink-description-container 부분의 unit test 입니다 - coverage f
     expect(wrapper.find('span[data-test="drink-name"]').text()).toEqual(testDrinkName);
   });
 
-  test('음료가 인기메뉴라면 "Best" 문구를 표시하고, 인기메뉴가 아니라면 표시하지 않음을 검증  ', async () => {
-    const testIsBest = true;
-    const testIsNotBest = false;
+  test('음료의 선호도를 표시하고 내용에 맞는 color를 렌더링 합니다.', async () => {
+    const testPreferenceBest = 'Best';
+    const testPreferenceNew = 'New';
 
     await wrapper.setData({
       drink: {
-        isBest: testIsBest,
+        preference: testPreferenceBest,
       },
     });
 
-    expect(wrapper.find('span[data-test="drink-isBest"]').exists()).toBe(true);
-    expect(wrapper.find('span[data-test="drink-isBest"]').text()).toEqual('Best');
-    expect(wrapper.find('span[data-test="drink-isBest"]').classes()).toContain('text-red-500');
+    expect(wrapper.find('span[data-test="drink-preference"]').exists()).toBe(true);
+
+    expect(wrapper.find('span[data-test="drink-preference"]').text()).toEqual(testPreferenceBest);
+    expect(wrapper.find('span[data-test="drink-preference"]').classes()).toContain('text-red-500');
 
     await wrapper.setData({
       drink: {
-        isBest: testIsNotBest,
+        preference: testPreferenceNew,
       },
     });
 
-    expect(wrapper.find('span[data-test="drink-isBest"]').exists()).toBe(false);
+    expect(wrapper.find('span[data-test="drink-preference"]').text()).toEqual(testPreferenceNew);
+    expect(wrapper.find('span[data-test="drink-preference"]').classes()).toContain('text-green-500');
   });
 
   it('tests rendering drink description sucessfully from given data property', async () => {
