@@ -25,6 +25,6 @@ describe('기능구현 요구사항 1번', () => {
 		});
 
 		expect(wrapper.findAll('div[data-test="product-component"]').length).toBe(testDrink.length);
-		expect(wrapper.findAllComponents(Product).length).toBe(testDrink.length)
+		expect(wrapper.findAllComponents(Product).length).toBe(testDrink.length);
 	});
 });

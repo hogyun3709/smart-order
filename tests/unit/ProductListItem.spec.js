@@ -32,45 +32,41 @@ describe('상품목록페이지의 SingleItem 컴포넌트로써 html에서 존�
 	it('상품의 가격을 렌더링할 element의 존재여부', () => {
 		expect(wrapper.find('p[data-test="product-price"]').exists()).toBeTruthy();
 	});
+
 });
-
-
-
 describe('상품목록페이지에서 data 들의 binding이 이루어져 data들이 렌더링 되는지를 검증합니다', () => {
 	const testProps = {
 		imageUrl: 'urlfromserviceprovider',
 		name: '테스트 커피',
 		status: '테스트 상태',
 		nameEng: 'test menu name',
-		price: 9999
-	}
+		price: 9999,
+	};
 
 	const wrapper = mount(ProductListItem, {
 		props: {
-			...testProps
-		}
+			...testProps,
+		},
 	});
 
 	it('상품의 한글명이 props와 매칭하여 렌더링되는지', () => {
-		expect(wrapper.find('span[data-test="product-name"]').text()).toEqual(testProps.name)
-	})
+		expect(wrapper.find('span[data-test="product-name"]').text()).toEqual(testProps.name);
+	});
 
 	it('상품의 상태(인기,신상)가 props와 매칭하여 렌더링되는지', () => {
-		expect(wrapper.find('span[data-test="product-status"]').text()).toEqual(testProps.status)
-	})
+		expect(wrapper.find('span[data-test="product-status"]').text()).toEqual(testProps.status);
+	});
 
 	it('상품의 영문명이 props와 매칭하여 렌더링되는지', () => {
 		expect(wrapper.find('p[data-test="product-name-english"]').text()).toEqual(testProps.nameEng);
-	})
+	});
 
 	it('상품의 가격이 props와 매칭하여 지정된 포맷에 맞추어 렌더링되는지', () => {
-		const testPriceFormat = `${testProps.price.toLocaleString()}원`
+		const testPriceFormat = `${testProps.price.toLocaleString()}원`;
 
 		expect(wrapper.find('p[data-test="product-price"]').text()).toEqual(testPriceFormat);
-	})
-
+	});
 	it('상품의 이미지 URL 정보가 props와 매칭하는지', () => {
-		expect(wrapper.find('img[data-test="product-image"]').attributes('src')).toEqual(testProps.imageUrl)
-	})
-
-})
+		expect(wrapper.find('img[data-test="product-image"]').attributes('src')).toEqual(testProps.imageUrl);
+	});
+});
