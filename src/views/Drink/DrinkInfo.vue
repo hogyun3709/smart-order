@@ -220,6 +220,7 @@
         <button
           class="mx-2 border-2 rounded-full w-16 h-8"
           data-test="drink-to-cart"
+          @click="addToCart()"
         >
           담기
         </button>
@@ -255,6 +256,8 @@ export default {
     ChevronLeftIcon,
     HeartIcon,
   },
+  emits: ['add-drink-to-cart'],
+
   data() {
     return {
       drink: {
@@ -314,6 +317,10 @@ export default {
     },
     decrementDrinkQuantity() {
       this.drink.defaultQuantity -= 1;
+    },
+    addToCart() {
+      console.log('click');
+      this.$emit('add-drink-to-cart', this.drink);
     },
   },
   computed: {
