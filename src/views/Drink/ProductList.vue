@@ -1,9 +1,6 @@
 <template>
-  <div data-test="product-list-container">
-    <h2
-      class="mx-3 my-3 text-xl font-bold"
-      data-test="menu-list-category-title"
-    >
+  <div class="mx-3 my-3" data-test="product-list-container">
+    <h2 class="text-xl font-bold" data-test="menu-list-category-title">
       에스프레소
     </h2>
     <Product
