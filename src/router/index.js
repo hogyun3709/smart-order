@@ -7,17 +7,17 @@ const routes = [
   {
     path: '/',
     name: 'ProductList',
-    components: { main: ProductList },
+    components: { product_list: ProductList },
   },
   {
     path: '/drink/testId',
-    name: 'Home',
-    components: { main: DrinkInfo },
+    name: 'DrinkInfo',
+    components: { drink_info: DrinkInfo },
   },
   {
     path: '/cart',
     name: 'Cart',
-    components: { main: Cart },
+    components: { cart: Cart },
   },
 ];
 
