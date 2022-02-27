@@ -21,6 +21,7 @@ export default {
     CartItem,
     MenuBottom,
   },
+
   data() {
     return {
       carts: [
@@ -55,24 +56,25 @@ export default {
           size: 'Tall',
           cupType: '개인 컵',
           image: 'https://coffee.alexflipnote.dev/random',
-          personalOption: {
-            espressoShot: {
+          personalOption: [
+            {
               name: '에스프레소 샷',
               defaultQuantity: 1,
               price: 500,
             },
-            syrup: {
+            {
               name: '헤이즐럿 시럽',
               defaultQuantity: 1,
               price: 700,
             },
-          },
+          ],
           defaultPrice: 4000,
           defaultQuantity: 1,
         },
       ],
     };
   },
+  methods: {},
 };
 </script>
 
