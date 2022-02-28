@@ -1,7 +1,7 @@
 <template>
   <div class="mx-2 my-2 grid grid-cols-4 gap-4" data-test="product-container">
     <img
-      class="aspect-square rounded-full"
+      class="aspect-square rounded-full w-20 justify-self-center"
       :src="imageUrl"
       alt="drink-image"
       data-test="product-image"
