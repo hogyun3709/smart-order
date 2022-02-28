@@ -29,7 +29,7 @@
       class="grid col-start-2 col-end-6 justify-items-start"
       data-test="cart-item-choice-detail-container"
     >
-      <div data-test="cart-item-choice-temp-size-cup-container">
+      <div data-test="cart-primary-choice-container">
         <span class="text-gray-500" data-test="cart-item-temperature">
           {{ temperature }}
         </span>
@@ -39,17 +39,17 @@
         <span class="text-gray-500" data-test="cart-item-cup-type">
           | {{ cupType }}
         </span>
-        <div
-          class="text-gray-500"
-          v-for="option in personalOption"
-          :key="option.name"
-          data-test="cart-option-detail-container"
-        >
-          <span data-test="cart-option-name">{{ option.name }}</span>
-          <span class="mx-2" data-test="cart-option-quantity">{{
-            option.defaultQuantity
-          }}</span>
-        </div>
+      </div>
+      <div
+        class="text-gray-500"
+        v-for="option in personalOption"
+        :key="option.name"
+        data-test="cart-option-detail-container"
+      >
+        <span data-test="cart-option-name">{{ option.name }}</span>
+        <span class="mx-2" data-test="cart-option-quantity">
+          {{ option.defaultQuantity }}
+        </span>
       </div>
     </div>
     <div
@@ -91,7 +91,7 @@
       {{ finalPriceWithformat }}
     </div>
   </div>
-  <hr />
+  <hr class="my-4" />
 </template>
 
 <script>

@@ -23,7 +23,7 @@ describe('장바구니 목록 페이지의 Single Item 컴포넌트로써 존재
   });
 
   it('장바구니로 등록된 아이템의 내용중 온도와, 사이즈, 컵에 대한 내용을 담을 container와 각 elements 들의 존재여부', () => {
-    expect(wrapper.find('div[data-test="cart-item-choice-temp-size-cup-container"]').exists()).toBeTruthy();
+    expect(wrapper.find('div[data-test="cart-primary-choice-container"]').exists()).toBeTruthy();
     expect(wrapper.find('span[data-test="cart-item-temperature"]').exists()).toBeTruthy();
     expect(wrapper.find('span[data-test="cart-item-size"]').exists()).toBeTruthy();
     expect(wrapper.find('span[data-test="cart-item-cup-type"]').exists()).toBeTruthy();
