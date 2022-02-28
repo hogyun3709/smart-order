@@ -1,16 +1,29 @@
 <template>
   <div class="mx-2 my-2 grid grid-cols-4 gap-2" data-test="cart-item-container">
     <img
-      class="col-start-1 col-end-2 aspect-square rounded-full"
+      class="
+        col-start-1 col-end-2
+        aspect-square
+        rounded-full
+        w-24
+        justify-self-center
+      "
       :src="image"
       alt="cart-item-image"
       data-test="cart-item-image"
     />
-    <div class="col-start-2 col-end-6" data-test="cart-item-name-container">
-      <p class="font-bold" data-test="cart-item-name">{{ name }}</p>
-      <p class="text-gray-300 text-xs" data-test="cart-item-name-english">
-        {{ nameEng }}
-      </p>
+    <div
+      class="col-start-2 col-end-6 flex items-center"
+      data-test="cart-item-name-container"
+    >
+      <div>
+        <p class="font-bold" data-test="cart-item-name">
+          {{ name }}
+        </p>
+        <p class="text-gray-300 text-xs" data-test="cart-item-name-english">
+          {{ nameEng }}
+        </p>
+      </div>
     </div>
     <div
       class="grid col-start-2 col-end-6 justify-items-start"
