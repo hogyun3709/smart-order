@@ -14,12 +14,11 @@ describe('장바구니 목록을 렌더링할 파일에 대한 검증입니다 -
   });
 
   it('장바구니의 목록이 데이터 array의 숫자 만큼 렌더링하는지를 검증합니다', async () => {
-    const testCart = [{ cartItem: '1' }, { cartItem: '2' }, { cartITem: '3' }];
+    const testCart = [{ name: 'testName' }, { name: 'testName2' }, { name: 'testName3' }];
 
     await wrapper.setData({
       carts: testCart,
     });
-    expect(wrapper.findAll('[data-test="cart-component"]').length).toEqual(testCart.length);
     expect(wrapper.findAllComponents(Cart).length).toEqual(testCart.length);
   });
 });

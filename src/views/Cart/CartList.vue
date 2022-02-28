@@ -1,13 +1,7 @@
 <template>
   <div class="mx-3 my-3" data-test="cart-list-container">
     <h2 class="text-xl font-bold" data-test="cart-list-title">장바구니</h2>
-    <CartItem
-      v-for="cart in carts"
-      :key="cart.id"
-      v-bind="cart"
-      class="mx-3 my-3"
-      data-test="cart-component"
-    />
+    <CartItem v-for="cart in carts" :key="cart.id" v-bind="cart" />
     <MenuBottom />
   </div>
 </template>
