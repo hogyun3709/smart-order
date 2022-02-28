@@ -67,7 +67,7 @@
     </div>
     <div class="col-start-2 col-end-6" data-test="cart-item-counter">
       <button
-        class="border-2 border-black rounded-full w-8 h-8 disabled:opacity-25"
+        class="border-2 border-black rounded-full w-7 h-7 disabled:opacity-25"
         :disabled="defaultQuantity <= 1"
         data-test="cart-option-decrease-button"
       >
@@ -77,7 +77,7 @@
         {{ defaultQuantity }}
       </span>
       <button
-        class="border-2 border-black rounded-full w-8 h-8 disabled:opacity-25"
+        class="border-2 border-black rounded-full w-7 h-7 disabled:opacity-25"
         :disabled="defaultQuantity >= 10"
         data-test="cart-option-increase-button"
       >
@@ -91,6 +91,7 @@
       {{ finalPriceWithformat }}
     </div>
   </div>
+  <hr />
 </template>
 
 <script>
