@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import LogInPage from '@/views/LogInPage.vue';
+import LogInPage from '@/views/auth/LogInPage.vue';
 
 describe('LogInPage.vue 파일에 대한 unit test 입니다', () => {
   it('tests root container with following three required containers', () => {
