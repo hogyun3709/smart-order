@@ -5,8 +5,6 @@ describe('LogInPage.vue 파일에 대한 unit test 입니다', () => {
   it('tests root container with following three required containers', () => {
     const wrapper = mount(LogInPage);
 
-    expect(wrapper.find('div[data-test="log-in-page-container"]').exists()).toBe(true);
-
     expect(wrapper.find('div[data-test="input-container"]').exists()).toBe(true);
     expect(wrapper.find('div[data-test="log-in-button-container"]').exists()).toBe(true);
     expect(wrapper.find('div[data-test="show-input-text-container"]').exists()).toBe(true);
