@@ -56,13 +56,13 @@
       class="grid col-start-7 col-span-2 justify-items-end"
       data-test="cart-item-price-container"
     >
-      <span class="text-gray-500" data-test="cart-item-default-price">{{
-        priceWithFormat(defaultPrice)
-      }}</span>
+      <span class="text-gray-500" data-test="cart-item-default-price">
+        {{ priceWithFormat(defaultPrice) }}
+      </span>
       <div v-for="option in personalOption" :key="option.name">
-        <span class="text-gray-500" data-test="cart-option-price">{{
-          priceWithFormat(option.price)
-        }}</span>
+        <span class="text-gray-500" data-test="cart-option-price">
+          {{ priceWithFormat(option.price) }}
+        </span>
       </div>
     </div>
     <div class="col-start-2 col-end-6" data-test="cart-item-counter">
