@@ -33,7 +33,12 @@
 </template>
 
 <script>
-import { HomeIcon, ShoppingCartIcon, CogIcon } from '@heroicons/vue/outline';
+import {
+  HomeIcon,
+  ClipboardListIcon,
+  ShoppingCartIcon,
+  CogIcon,
+} from '@heroicons/vue/outline';
 
 export default {
   data() {
@@ -43,6 +48,11 @@ export default {
           icon: HomeIcon,
           text: '홈',
           link: '/',
+        },
+        {
+          icon: ClipboardListIcon,
+          text: '주문',
+          link: '/product',
         },
         {
           icon: ShoppingCartIcon,
