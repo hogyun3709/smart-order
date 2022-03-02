@@ -10,7 +10,7 @@
           v-for="menu in menus"
           :key="menu.text"
           data-test="nav-menus"
-          href="#"
+          :href="`${menu.link}`"
           class="
             w-full
             focus:text-teal-500
@@ -42,10 +42,12 @@ export default {
         {
           icon: HomeIcon,
           text: '홈',
+          link: '/',
         },
         {
           icon: ShoppingCartIcon,
           text: '장바구니',
+          link: '/cart',
         },
         {
           icon: CogIcon,
