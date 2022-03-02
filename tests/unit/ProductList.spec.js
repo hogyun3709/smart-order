@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 
-import ProductList from '@/views/Drink/ProductList.vue';
+import ProductList from '@/views/drink/ProductList.vue';
 import Product from '@/components/ProductListItem.vue';
 import MenuBottom from '@/components/MenuBottom.vue';
 

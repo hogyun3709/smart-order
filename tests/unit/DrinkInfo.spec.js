@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import DrinkInfo from '@/views/Drink/DrinkInfo.vue';
+import DrinkInfo from '@/views/drink/DrinkInfo.vue';
 import MenuBottom from '@/components/MenuBottom.vue';
 import { ChevronLeftIcon, ShareIcon } from '@heroicons/vue/outline';
 
