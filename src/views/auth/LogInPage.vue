@@ -1,7 +1,7 @@
 <template>
   <div
     class="grid grid-cols-6 gap-4 content-center h-full"
-    data-test="input-container"
+    data-test="login-page-container"
   >
     <label class="col-start-2 col-span-4" for="name" data-test="username-label">
       <span
@@ -51,11 +51,15 @@
         data-test="password-input-field"
       />
     </label>
-    <div class="col-start-3 col-span-2" data-test="log-in-button-container">
+    <div
+      class="col-start-3 col-span-2"
+      data-test="log-in-or-sign-in-button-container"
+    >
       <button
         class="
-          bg-gray-500
-          hover:bg-gray-700
+          bg-green-500
+          hover:bg-green-500/75
+          active:bg-green-500/50
           text-white
           font-bold
           py-2
@@ -67,10 +71,23 @@
       >
         로그인
       </button>
-    </div>
-    <div class="col-start-2 col-span-4" data-test="show-input-text-container">
-      <p data-test="show-input-username">아이디: {{ username }}</p>
-      <p data-test="show-input-password">비밀번호: {{ password }}</p>
+      <hr class="my-2 border-gray-400" />
+      <button
+        class="
+          bg-purple-500
+          hover:bg-purple-500/75
+          active:bg-purple-500/50
+          text-white
+          font-bold
+          py-2
+          px-4
+          rounded
+          w-full
+        "
+        data-test="sign-in-button"
+      >
+        회원가입
+      </button>
     </div>
   </div>
 </template>
