@@ -1,5 +1,5 @@
 <template>
-  <div class="grid content-center max-w-screen-sm mx-auto min-w-375">
+  <div class="max-w-screen-sm mx-auto min-w-375 h-screen">
     <router-view name="main"></router-view>
   </div>
 </template>
