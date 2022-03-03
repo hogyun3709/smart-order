@@ -62,6 +62,7 @@ export default {
         {
           icon: CogIcon,
           text: '설정',
+          link: '/signin',
         },
       ],
     };

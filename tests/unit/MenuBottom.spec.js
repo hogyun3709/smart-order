@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { HomeIcon, ShoppingCartIcon, CogIcon } from '@heroicons/vue/outline';
+import { HomeIcon, ClipboardListIcon, ShoppingCartIcon, CogIcon } from '@heroicons/vue/outline';
 import MenuBottom from '@/components/MenuBottom.vue';
 
 describe('MenuBottom.vue 파일의 unit test 입니다', () => {
@@ -9,8 +9,14 @@ describe('MenuBottom.vue 파일의 unit test 입니다', () => {
       text: '홈',
     },
     {
+      icon: ClipboardListIcon,
+      text: '주문',
+      link: '/product',
+    },
+    {
       icon: ShoppingCartIcon,
       text: '장바구니',
+      link: '/cart'
     },
     {
       icon: CogIcon,
@@ -27,7 +33,7 @@ describe('MenuBottom.vue 파일의 unit test 입니다', () => {
   it('renders N(menus.length) of menus on the bottom navigation', () => {
     const wrapper = mount(MenuBottom);
 
-    expect(wrapper.findAll('a[data-test="nav-menus"]').length).toBe(menus.length);
+    expect(wrapper.findAll('[data-test="nav-menus"]').length).toBe(menus.length);
   });
 
   it('renders N of menus texts on the bottom navigation', () => {
@@ -36,8 +42,5 @@ describe('MenuBottom.vue 파일의 unit test 입니다', () => {
     for (let i = 0; i < menus.length; i += 1) {
       expect(wrapper.findAll('p[data-test="nav-menu-text"]')[i].text()).toBe(`${menus[i].text}`);
     }
-  });
-  it('checks menus icons successfully render', () => {
-    /* Icon 에 대한 존재 TC 는? */
   });
 });
