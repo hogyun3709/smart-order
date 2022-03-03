@@ -10,8 +10,9 @@
           after:content-['*'] after:ml-0.5 after:text-red-500
         "
         data-test="username-title"
-        >아이디</span
       >
+        아이디
+      </span>
       <input
         type="text"
         class="
@@ -27,15 +28,20 @@
         data-test="username-input-field"
       />
     </label>
-    <label class="col-start-2 col-span-4" for="name" data-test="password-label">
+    <label
+      class="col-start-2 col-span-4"
+      for="password"
+      data-test="password-label"
+    >
       <span
         class="
           text-gray-700
           after:content-['*'] after:ml-0.5 after:text-red-500
         "
         data-test="password-title"
-        >패스워드</span
       >
+        패스워드
+      </span>
       <input
         type="password"
         class="
@@ -72,22 +78,24 @@
         로그인
       </button>
       <hr class="my-2 border-gray-400" />
-      <button
-        class="
-          bg-purple-500
-          hover:bg-purple-500/75
-          active:bg-purple-500/50
-          text-white
-          font-bold
-          py-2
-          px-4
-          rounded
-          w-full
-        "
-        data-test="sign-in-button"
-      >
-        회원가입
-      </button>
+      <router-link to="/signin">
+        <button
+          class="
+            bg-purple-500
+            hover:bg-purple-500/75
+            active:bg-purple-500/50
+            text-white
+            font-bold
+            py-2
+            px-4
+            rounded
+            w-full
+          "
+          data-test="sign-in-button"
+        >
+          회원가입
+        </button>
+      </router-link>
     </div>
   </div>
 </template>
