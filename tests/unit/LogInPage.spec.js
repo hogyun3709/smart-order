@@ -28,5 +28,5 @@ describe('LogInPage.vue 파일에 대한 unit test 입니다', () => {
 
     expect(wrapper.find('button[data-test="sign-in-button"]').exists()).toBeTruthy();
     expect(wrapper.get('button[data-test="sign-in-button"]').text()).toBe(testSignIntext);
-  })
+  });
 });
