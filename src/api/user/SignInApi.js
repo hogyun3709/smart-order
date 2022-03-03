@@ -1,4 +1,4 @@
-import BasicHttpClient from '@/api/BasicHttpClient';
+import BasicHttpClient from './BasicHttpClient';
 
 export default class SignInApi {
   constructor(clientInstance) {
