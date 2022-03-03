@@ -1,5 +1,7 @@
 import { mount } from '@vue/test-utils';
-import { HomeIcon, ClipboardListIcon, ShoppingCartIcon, CogIcon } from '@heroicons/vue/outline';
+import {
+  HomeIcon, ClipboardListIcon, ShoppingCartIcon, CogIcon,
+} from '@heroicons/vue/outline';
 import MenuBottom from '@/components/MenuBottom.vue';
 
 describe('MenuBottom.vue 파일의 unit test 입니다', () => {
@@ -16,13 +18,15 @@ describe('MenuBottom.vue 파일의 unit test 입니다', () => {
     {
       icon: ShoppingCartIcon,
       text: '장바구니',
-      link: '/cart'
+      link: '/cart',
     },
     {
       icon: CogIcon,
-      text: '설정',
+      text: '마이페이지',
+      link: '/mypage',
     },
   ];
+
   it('renders bottom-navigation related elements - container', () => {
     const wrapper = mount(MenuBottom);
 
