@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-class BasicClient {
+export default class BasicClient {
   constructor() {
     const baseURL = 'https://taling.projectlion.lkaybob.pe.kr/api';
     const auth = { username: 'web-app', password: 'abcd1234' };
@@ -11,5 +11,3 @@ class BasicClient {
     });
   }
 }
-
-export default BasicClient;
