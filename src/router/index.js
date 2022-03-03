@@ -4,6 +4,7 @@ import Cart from '@/views/cart/CartList.vue';
 import DrinkInfo from '@/views/drink/DrinkInfo.vue';
 import LogInPage from '@/views/auth/LogInPage.vue';
 import SignInPage from '@/views/auth/SignInPage.vue';
+import MyPage from '@/views/auth/MyPage.vue';
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: '/cart',
     name: 'Cart',
     components: { main: Cart },
+  },
+  {
+    path: '/mypage',
+    name: 'MyPage',
+    components: { main: MyPage },
   },
 ];
 
