@@ -2,7 +2,7 @@
   <div class="mx-2 my-2 grid grid-cols-4 gap-4" data-test="product-container">
     <img
       class="aspect-square rounded-full w-20 justify-self-center"
-      :src="imageUrl"
+      :src="imgUrl"
       alt="drink-image"
       data-test="product-image"
     />
@@ -11,17 +11,13 @@
       data-test="product-description"
     >
       <span class="font-bold text-lg" data-test="product-name">
-        {{ name }}
+        {{ nameKr }}
       </span>
       <span
-        class="inline-block mx-2 mt-0.5 text-xs align-top italic"
-        :class="{
-          'text-red-500': status === 'Hot',
-          'text-green-500': status === 'New',
-        }"
-        data-test="product-status"
+        v-if="isNewProduct"
+        class="inline-block mx-2 mt-0.5 text-xs align-top italic text-green-500"
       >
-        {{ status }}
+        New
       </span>
       <p class="text-xs text-gray-400" data-test="product-name-english">
         {{ nameEng }}
@@ -34,12 +30,11 @@
 <script>
 export default {
   props: {
-    id: { type: String, default: '' },
-    name: { type: String, default: '' },
+    nameKr: { type: String, default: '' },
     nameEng: { type: String, default: '' },
     price: { type: Number, default: -1 },
-    imageUrl: { type: String, default: '' },
-    status: { type: String, default: null },
+    imgUrl: { type: String, default: '' },
+    isNewProduct: { type: Boolean, default: false },
   },
   computed: {
     priceWithFormat() {
