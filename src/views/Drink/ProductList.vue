@@ -3,13 +3,13 @@
     <h2 class="text-xl font-bold" data-test="menu-list-category-title">
       에스프레소
     </h2>
-    <Product
+    <router-link
       v-for="drink in drinks"
-      :key="drink.id"
-      v-bind="drink"
-      class="mx-3 my-3"
-      data-test="product-component"
-    />
+      :key="drink.productNo"
+      :to="drinkNoPath(drink.productNo)"
+    >
+      <Product v-bind="drink" class="mx-3 my-3" data-test="product-component" />
+    </router-link>
   </div>
   <MenuBottom />
 </template>
@@ -29,6 +29,11 @@ export default {
     return {
       drinks: [ProductsModel],
     };
+  },
+  methods: {
+    drinkNoPath(productNo) {
+      return `/product/${productNo}`;
+    },
   },
   async created() {
     const apiClient = new DrinkApi();
