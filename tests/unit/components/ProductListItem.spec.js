@@ -22,7 +22,12 @@ describe('상품목록페이지의 SingleItem 컴포넌트로써 html에서 존�
   });
 
   it('상품의 상태(신제품 및 인기제품)를 렌더링할 element 의 존재여부', () => {
-    expect(wrapper.find('span[data-test="product-status"]').exists()).toBeTruthy();
+    const wrapper = mount(ProductListItem, {
+      props: {
+        isNewProduct: true
+      }
+    })
+    expect(wrapper.find('span[data-test="product-new"]').exists()).toBeTruthy();
   });
 
   it('상품의 영문명을 렌더링할 element의 존재여부', () => {
@@ -35,9 +40,9 @@ describe('상품목록페이지의 SingleItem 컴포넌트로써 html에서 존�
 });
 describe('상품목록페이지에서 data 들의 binding이 이루어져 data들이 렌더링 되는지를 검증합니다', () => {
   const testProps = {
-    imageUrl: 'urlfromserviceprovider',
-    name: '테스트 커피',
-    status: '테스트 상태',
+    imgUrl: 'urlfromserviceprovider',
+    nameKr: '테스트 커피',
+    isNewProduct: true,
     nameEng: 'test menu name',
     price: 9999,
   };
@@ -49,11 +54,11 @@ describe('상품목록페이지에서 data 들의 binding이 이루어져 data�
   });
 
   it('상품의 한글명이 props와 매칭하여 렌더링되는지', () => {
-    expect(wrapper.find('span[data-test="product-name"]').text()).toEqual(testProps.name);
+    expect(wrapper.find('span[data-test="product-name"]').text()).toEqual(testProps.nameKr);
   });
 
-  it('상품의 상태(인기,신상)가 props와 매칭하여 렌더링되는지', () => {
-    expect(wrapper.find('span[data-test="product-status"]').text()).toEqual(testProps.status);
+  it('상품의 상태가 인기 메뉴라면, New라는 텍스트를 렌더링하는지 ', () => {
+    expect(wrapper.find('span[data-test="product-new"]').text()).toEqual('New');
   });
 
   it('상품의 영문명이 props와 매칭하여 렌더링되는지', () => {
@@ -66,6 +71,6 @@ describe('상품목록페이지에서 data 들의 binding이 이루어져 data�
     expect(wrapper.find('p[data-test="product-price"]').text()).toEqual(testPriceFormat);
   });
   it('상품의 이미지 URL 정보가 props와 매칭하는지', () => {
-    expect(wrapper.find('img[data-test="product-image"]').attributes('src')).toEqual(testProps.imageUrl);
+    expect(wrapper.find('img[data-test="product-image"]').attributes('src')).toEqual(testProps.imgUrl);
   });
 });

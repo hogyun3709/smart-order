@@ -16,6 +16,7 @@
       <span
         v-if="isNewProduct"
         class="inline-block mx-2 mt-0.5 text-xs align-top italic text-green-500"
+        data-test="product-new"
       >
         New
       </span>
