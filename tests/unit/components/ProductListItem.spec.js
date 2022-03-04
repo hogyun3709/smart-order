@@ -3,7 +3,11 @@ import { mount } from '@vue/test-utils';
 import ProductListItem from '@/components/ProductListItem.vue';
 
 describe('상품목록페이지의 SingleItem 컴포넌트로써 html에서 존재해야할 element tag들을 검증합니다.', () => {
-  const wrapper = mount(ProductListItem);
+  const wrapper = mount(ProductListItem, {
+    props: {
+      isNewProduct: true,
+    },
+  });
 
   it('상품목록 페이지의 정보를 담은 최상단 container의 존재여부', () => {
     expect(wrapper.find('div[data-test="product-container"]').exists()).toBeTruthy();
@@ -22,11 +26,6 @@ describe('상품목록페이지의 SingleItem 컴포넌트로써 html에서 존�
   });
 
   it('상품의 상태(신제품 및 인기제품)를 렌더링할 element 의 존재여부', () => {
-    const wrapper = mount(ProductListItem, {
-      props: {
-        isNewProduct: true
-      }
-    })
     expect(wrapper.find('span[data-test="product-new"]').exists()).toBeTruthy();
   });
 
