@@ -3,7 +3,7 @@ import axios from 'axios';
 export default class OAuthClient {
   constructor() {
     const baseURL = 'https://taling.projectlion.lkaybob.pe.kr/api';
-    const token = '7DG0aCAMHsdn6927R9FiOuDdTNHbDWz1LRPksLvZ9a7eLvOZBvPfqF5fn0vIx3OZNyuEX25YANPUimJrndeuKxrGbRVq4fS8dls0sNRmmedmf3ESnfoEV7PcT16Q5H6QhbfaBVkqScCoAUis5XPoJraYmWtGEddWJpgqxfTPzxArzArbVuUGypBG0NGziCDygBLU50iJAhZnISI0OIxHv1Artzal1VUintClhW4JBsUDJK58ccrzjwxdVU4AGAj6';
+    const token = 'VmHU1EZl1nyuw1XqP3KgKQR136ju3bdYwowoXRUFeCYhL1LvNTgTCQijuVDRKDoqSk1wY2Fzl2shsLabuSKo5jb23s1PTnY6Hjxnz3UV0SwHPTee5NSUIeIXeynxwvce0Rkk8UoNPVsMFeMA0TRjQFIlEhRyOiYiLXcKg2Wa7W35qcp6YbwrUnzQPQ8DdvRC4MzyvMu2PgEq2pVYpz43C2bXbFuRUp3pAhJcb8umHt65HTaSj5ryWjPbqv6FvrQs';
 
     this.instance = axios.create({
       baseURL,
