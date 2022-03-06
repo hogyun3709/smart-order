@@ -33,5 +33,5 @@ export default {
     },
   },
   defaultQuantity: 1,
-  options: [{}],
+  options: [{ baseQuantity: 0 }],
 };
