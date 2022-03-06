@@ -1,8 +1,8 @@
-import ProductList from '@/views/drink/ProductList.vue';
-import Cart from '@/views/cart/CartList.vue';
 import LogInPage from '@/views/auth/LogInPage.vue';
 import SignInPage from '@/views/auth/SignInPage.vue';
 import MyPage from '@/views/auth/MyPage.vue';
+import ProductList from '@/views/drink/ProductList.vue';
+import Cart from '@/views/cart/CartList.vue';
 
 export default [
   {

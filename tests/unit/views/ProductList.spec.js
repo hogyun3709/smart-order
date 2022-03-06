@@ -2,9 +2,9 @@ import { mount } from '@vue/test-utils';
 // import { createRouter, createWebHistory } from 'vue-router';
 // import baseRoutes from '@/router/base';
 // import drinkRoutes from '@/router/drink';
-import ProductList from '@/views/drink/ProductList.vue';
 import Product from '@/components/ProductListItem.vue';
 import MenuBottom from '@/components/MenuBottom.vue';
+import ProductList from '@/views/drink/ProductList.vue';
 
 // const finalRoute = [].concat(baseRoutes, drinkRoutes);
 
