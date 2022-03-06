@@ -7,7 +7,7 @@
     <div class="relative" data-test="drink-image-container">
       <img
         class="w-full aspect-square"
-        :src="drink.image"
+        :src="drink.imgUrl"
         alt="drink-image"
         data-test="drink-image"
       />
@@ -45,29 +45,34 @@
     </div>
     <div data-test="drink-description-container">
       <span class="text-xl font-bold my-2 inline-block" data-test="drink-name">
-        {{ drink.name }}
+        {{ drink.nameKr }}
       </span>
       <span
-        class="text-xs italic inline-block mx-2 align-text-top"
-        :class="{
-          'text-red-500': drink.preference === 'Best',
-          'text-green-500': drink.preference === 'New',
-        }"
-        data-test="drink-preference"
+        v-if="drink.isNewProduct"
+        class="text-xs italic inline-block mx-2 align-text-top text-green-500"
+        data-test="drink-is-new"
       >
-        {{ drink.preference }}
+        New
       </span>
-      <p class="mb-2 text-gray-400 text-xs">
+      <span
+        v-if="drink.isHot"
+        class="text-xs italic inline-block mx-2 align-text-top text-red-500"
+        data-test="drink-is-best"
+      >
+        Best
+      </span>
+      <p class="mb-2 text-gray-400 text-xs" data-test="drink-name-english">
         {{ drink.nameEng }}
       </p>
       <p class="text-sm" data-test="drink-description">
         {{ drink.description }}
       </p>
       <span
+        v-if="drink.price"
         class="my-3 inline-block text-lg font-bold my-2"
         data-test="drink-default-price"
       >
-        {{ priceWithFormat(drink.defaultPrice) }}
+        {{ priceWithFormat(drink.price) }}
       </span>
     </div>
     <div data-test="drink-select-temperature-container">
@@ -111,9 +116,9 @@
     <div data-test="drink-select-size-container">
       <h4 class="my-3" data-test="drink-select-size-title">사이즈</h4>
       <button
-        v-for="size in drink.sizes"
-        :key="size.text"
-        :data-test="`drink-size-${size.text}`"
+        v-for="size in drink.cupSizes"
+        :key="size.optionNo"
+        :data-test="`drink-size-${size.name}`"
         class="
           w-1/4
           border
@@ -124,7 +129,7 @@
         <p class="my-1">
           <i :class="size.icon" :data-test="`drink-size-${size.icon}`" />
         </p>
-        {{ size.text }}
+        {{ size.name }}
       </button>
     </div>
     <div data-test="drink-select-cup-type-container">
@@ -148,35 +153,45 @@
         {{ cupType }}
       </button>
     </div>
-    <div class="grid grid-cols-6" data-test="drink-personal-option-container">
-      <h4
-        class="my-3 col-start-1 col-end-7"
-        data-test="drink-personal-option-title"
+    <h4
+      class="my-3 col-start-1 col-end-7"
+      data-test="drink-personal-option-title"
+    >
+      퍼스널 옵션
+    </h4>
+    <div
+      class="grid grid-cols-6 grid-flow-col"
+      data-test="drink-personal-option-container"
+    >
+      <div
+        v-for="option in drink.options"
+        :key="option.optionNo"
+        class="col-start-1 col-end-7 my-0.5"
+        data-test="drink-personal-option-name"
       >
-        퍼스널 옵션
-      </h4>
-      <div class="col-start-1 col-end-7" data-test="drink-personal-option-name">
-        {{ drink.personalOption.espressoShot.name }}
+        {{ option.name }}
       </div>
       <div
-        class="col-start-8 col-end-12"
-        data-test="drink-personal-option-espresso-counter"
+        v-for="(option, index) in drink.options"
+        :key="option.optionNo"
+        class="col-start-8 col-end-12 my-0.5"
+        data-test="drink-personal-option-counter"
       >
         <button
-          class="border-2 border-black rounded-full w-8 h-8 disabled:opacity-25"
-          :disabled="drink.personalOption.espressoShot.defaultQuantity <= 1"
-          @click="decrementEspressoShot()"
+          class="border-2 border-black rounded-full w-7 h-7 disabled:opacity-25"
+          :disabled="option.baseQuantity <= 1"
+          @click="decreOption(index)"
           data-test="decrease-button"
         >
           -
         </button>
         <span class="mx-2" data-test="personal-option-quantity">
-          {{ personalOptionQuantity }}
+          {{ option.baseQuantity }}
         </span>
         <button
-          class="border-2 border-black rounded-full w-8 h-8 disabled:opacity-25"
-          :disabled="drink.personalOption.espressoShot.defaultQuantity >= 10"
-          @click="incrementEspressoShot()"
+          class="border-2 border-black rounded-full w-7 h-7 disabled:opacity-25"
+          :disabled="option.baseQuantity >= 10"
+          @click="increOption(index)"
           data-test="increase-button"
         >
           +
@@ -197,7 +212,9 @@
         >
           -
         </button>
-        <span class="mx-2" data-test="drink-quantity">{{ drinkQuantity }}</span>
+        <span class="mx-2" data-test="drink-quantity">{{
+          drink.defaultQuantity
+        }}</span>
         <button
           class="border-2 border-black rounded-full w-8 h-8 disabled:opactiy-25"
           :disabled="drink.defaultQuantity >= 10"
@@ -220,6 +237,7 @@
         <button
           class="mx-2 border-2 rounded-full w-16 h-8"
           data-test="drink-to-cart"
+          @click="addProductToCart()"
         >
           담기
         </button>
@@ -234,6 +252,7 @@
             w-32
             h-8
           "
+          @click="addOrder()"
           data-test="drink-order"
         >
           주문하기
@@ -241,12 +260,20 @@
       </div>
     </div>
   </div>
+  <Teleport to="body">
+    <ConfirmOrderMessage :isAddOrder="isAddOrder"> </ConfirmOrderMessage>
+  </Teleport>
   <MenuBottom />
 </template>
 
 <script>
 import { ShareIcon, ChevronLeftIcon, HeartIcon } from '@heroicons/vue/outline';
 import MenuBottom from '@/components/MenuBottom.vue';
+import DrinkDetail from '@/model/drink/drinkDetail';
+import DrinkApi from '@/api/drink/DrinkApi';
+import CartApi from '@/api/order/CartApi';
+import OrderApi from '@/api/order/OrderApi';
+import ConfirmOrderMessage from '@/components/modal/OrderModal.vue';
 
 export default {
   components: {
@@ -254,48 +281,21 @@ export default {
     ShareIcon,
     ChevronLeftIcon,
     HeartIcon,
+    ConfirmOrderMessage,
   },
 
   data() {
     return {
-      drink: {
-        image: 'https://coffee.alexflipnote.dev/random',
-        name: '카페라떼',
-        nameEng: 'Caffe Latte',
-        preference: 'Best',
-        description:
-          '풍부하고 진한 에스프레소가 신선한 스팀 밀크를 만나 부드러워진 커피 위에 우유 거품을 살짝 얹은 대표적인 카페 라떼',
-        defaultPrice: 5000,
-        temperature: null,
-        sizes: [
-          {
-            icon: 'fa-solid fa-mug-saucer fa-xs',
-            text: 'Short',
-          },
-          {
-            icon: 'fa-solid fa-mug-saucer fa-sm',
-            text: 'Tall',
-          },
-          {
-            icon: 'fa-solid fa-mug-saucer fa-lg',
-            text: 'Grande',
-          },
-          {
-            icon: 'fa-solid fa-mug-saucer fa-xl',
-            text: 'Venti',
-          },
-        ],
-        cupTypes: ['매장 컵', '개인 컵', '일회용 컵'],
-        personalOption: {
-          espressoShot: {
-            name: '에스프레소 샷',
-            defaultQuantity: 1,
-            price: 500,
-          },
-        },
-        defaultQuantity: 1,
-      },
+      drink: DrinkDetail,
+      isAddToCart: '',
+      isAddOrder: '',
     };
+  },
+  async created() {
+    const apiClient = new DrinkApi();
+    const response = await apiClient.getProductDetail(this.$route.params.id);
+    const originalDrinks = this.drink;
+    this.drink = Object.assign(originalDrinks, response.data.product);
   },
   methods: {
     priceWithFormat(price) {
@@ -304,11 +304,11 @@ export default {
     setTemperature(value) {
       this.drink.temperature = value;
     },
-    incrementEspressoShot() {
-      this.drink.personalOption.espressoShot.defaultQuantity += 1;
+    increOption(idx) {
+      this.drink.options[idx].baseQuantity += 1;
     },
-    decrementEspressoShot() {
-      this.drink.personalOption.espressoShot.defaultQuantity -= 1;
+    decreOption(idx) {
+      this.drink.options[idx].baseQuantity -= 1;
     },
     incrementDrinkQuantity() {
       this.drink.defaultQuantity += 1;
@@ -316,22 +316,41 @@ export default {
     decrementDrinkQuantity() {
       this.drink.defaultQuantity -= 1;
     },
+    async addProductToCart() {
+      const apiClient = new CartApi();
+      const payload = {
+        productNo: this.drink.productNo,
+        quantity: this.drink.defaultQuantity,
+        options: this.drink.options,
+      };
+      console.log(payload);
+      const response = await apiClient.addItemToCart(payload);
+      this.isAddToCart = response.data.result;
+      console.log('cart', this.isAddToCart);
+    },
+    async addOrder() {
+      const apiClient = new OrderApi();
+      const response = await apiClient.createOrder();
+      this.isAddOrder = response.data.result;
+      console.log(this.isAddOrder);
+    },
   },
   computed: {
     personalOptionQuantity() {
       return this.drink.personalOption.espressoShot.defaultQuantity;
     },
-    drinkQuantity() {
-      return this.drink.defaultQuantity;
-    },
     finalPriceWithFormat() {
       const price = this.drink.defaultPrice;
       const quantity = this.drink.defaultQuantity;
-      const optPrice = this.drink.personalOption.espressoShot.price;
-      const optQuant = this.drink.personalOption.espressoShot.defaultQuantity;
-      const optDefault = optPrice * 1;
+      const { options } = this.drink;
+      let optPriceTotal = 0;
 
-      const finalPrice = (price + optPrice * optQuant - optDefault) * quantity;
+      for (let i = 0; i < options.length; i += 1) {
+        const optPrice = options[i].unitprice * options[i].baseQuantity;
+        optPriceTotal += optPrice;
+      }
+
+      const finalPrice = (price + optPriceTotal) * quantity;
 
       return `${finalPrice.toLocaleString()}원`;
     },
