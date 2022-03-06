@@ -1,22 +1,23 @@
-import { mount, flushPromises } from '@vue/test-utils';
-import App from '@/App.vue';
-import { createRouter, createWebHistory } from 'vue-router';
-import baseRoutes from '@/router/base';
-import drinkRoutes from '@/router/drink';
+import { mount } from '@vue/test-utils';
+// import { createRouter, createWebHistory } from 'vue-router';
+// import baseRoutes from '@/router/base';
+// import drinkRoutes from '@/router/drink';
 import ProductList from '@/views/drink/ProductList.vue';
 import Product from '@/components/ProductListItem.vue';
 import MenuBottom from '@/components/MenuBottom.vue';
 
-const finalRoute = [].concat(baseRoutes, drinkRoutes);
+// const finalRoute = [].concat(baseRoutes, drinkRoutes);
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes: finalRoute,
-});
+// const router = createRouter({
+//   history: createWebHistory(process.env.BASE_URL),
+//   routes: finalRoute,
+// });
 
 // const mockGetProducts = jest.fn();
 // const mockGetProductDetail = jest.fn();
-// jest.mock('@/api/drink/DrinkApi', () => jest.fn().mockImplementation(() => ({ getProducts: mockGetProducts, getProductDetail: mockGetProductDetail })))
+// jest.mock('@/api/drink/DrinkApi', () => jest.fn().mockImplementation(() => ({
+//   getProducts: mockGetProducts, getProductDetail: mockGetProductDetail
+// })))
 
 describe('기능구현 요구사항 1번', () => {
   // beforeEach(() => {
