@@ -1,10 +1,28 @@
-import { mount } from '@vue/test-utils';
-
+import { mount, flushPromises } from '@vue/test-utils';
+import App from '@/App.vue';
+import { createRouter, createWebHistory } from 'vue-router';
+import baseRoutes from '@/router/base';
+import drinkRoutes from '@/router/drink';
 import ProductList from '@/views/drink/ProductList.vue';
 import Product from '@/components/ProductListItem.vue';
 import MenuBottom from '@/components/MenuBottom.vue';
 
+const finalRoute = [].concat(baseRoutes, drinkRoutes);
+
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes: finalRoute,
+});
+
+// const mockGetProducts = jest.fn();
+// const mockGetProductDetail = jest.fn();
+// jest.mock('@/api/drink/DrinkApi', () => jest.fn().mockImplementation(() => ({ getProducts: mockGetProducts, getProductDetail: mockGetProductDetail })))
+
 describe('기능구현 요구사항 1번', () => {
+  // beforeEach(() => {
+  //   mockGetProducts.mockClear();
+  // })
+
   const wrapper = mount(ProductList);
 
   it('메뉴 부분의 표시가 이루어지는지 테스트 합니다.', () => {
@@ -23,6 +41,8 @@ describe('기능구현 요구사항 1번', () => {
     await wrapper.setData({
       drinks: testDrink,
     });
+    // mockGetProducts.mockResolvedValueOnce({ data: { drinks: testDrink } })
+    // await flushPromises();
 
     expect(wrapper.findAll('div[data-test="product-component"]').length).toBe(testDrink.length);
     expect(wrapper.findAllComponents(Product).length).toBe(testDrink.length);
