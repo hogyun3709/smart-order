@@ -1,4 +1,4 @@
-import DrinkInfoPage from '@/views/drink/DrinkInfo.vue';
+import DrinkInfoPage from '@/views/Drink/DrinkInfo.vue';
 
 export default [
   {

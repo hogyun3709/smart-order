@@ -4,7 +4,7 @@ import { mount } from '@vue/test-utils';
 // import drinkRoutes from '@/router/drink';
 import Product from '@/components/ProductListItem.vue';
 import MenuBottom from '@/components/MenuBottom.vue';
-import ProductList from '@/views/drink/ProductList.vue';
+import ProductList from '@/views/Drink/ProductList.vue';
 
 // const finalRoute = [].concat(baseRoutes, drinkRoutes);
 

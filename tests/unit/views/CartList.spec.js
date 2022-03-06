@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import Cart from '@/components/CartListItem.vue';
-import CartList from '@/views/cart/CartList.vue';
+import CartList from '@/views/Cart/CartList.vue';
 
 describe('장바구니 목록을 렌더링할 파일에 대한 검증입니다 - 추가기능', () => {
   const wrapper = mount(CartList);
