@@ -4,7 +4,7 @@
     class="max-w-full mx-5 inline-block"
     data-test="drink-info"
   >
-    <div class="relative" data-test="drink-image-container">
+    <div class="relative -mx-5" data-test="drink-image-container">
       <img
         class="w-full aspect-square"
         :src="drink.imgUrl"
@@ -15,11 +15,11 @@
         class="
           absolute
           top-0
-          bg-slate-400
+          bg-transparent
           text-white
           p-2
-          rounded
-          hover:bg-blue-600
+          rounded-full
+          hover:bg-white hover:text-black
           m-2
         "
         data-test="drink-image-prev-page-button"
@@ -31,11 +31,11 @@
           absolute
           top-0
           right-0
-          bg-slate-400
+          bg-transparent
           text-white
           p-2
-          rounded
-          hover:bg-blue-600
+          rounded-full
+          hover:bg-white hover:text-black
           m-2
         "
         data-test="drink-image-share-button"
