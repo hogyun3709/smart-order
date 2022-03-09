@@ -33,5 +33,10 @@ export default {
     },
   },
   defaultQuantity: 1,
-  options: [{ baseQuantity: 0 }],
+  options: [{
+    optionNo: 0,
+    name: '',
+    unitPrice: 0,
+    quantity: 0,
+  }],
 };
