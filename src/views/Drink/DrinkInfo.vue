@@ -185,7 +185,8 @@
     </ProductOrder>
   </div>
   <Teleport to="body">
-    <ConfirmOrderMessage :isAddOrder="isAddOrder"> </ConfirmOrderMessage>
+    <ConfirmOrderDialog :isAddOrder="isAddOrder"> </ConfirmOrderDialog>
+    <ConfirmAddedToCartDialog :isAddedToCart="isAddedToCart"></ConfirmAddedToCartDialog>
   </Teleport>
   <MenuBottom />
 </template>
@@ -198,7 +199,8 @@ import ProductToCart from '@/model/drink/productToCart';
 import DrinkApi from '@/api/drink/DrinkApi';
 import CartApi from '@/api/order/CartApi';
 import OrderApi from '@/api/order/OrderApi';
-import ConfirmOrderMessage from '@/components/modal/OrderModal.vue';
+import ConfirmOrderDialog from '@/components/modal/OrderModal.vue';
+import ConfirmAddedToCartDialog from '@/components/modal/ProductToCartModal.vue';
 import ProductOption from '@/components/ProductOption.vue';
 import ProductOrder from '@/components/ProductOrder.vue';
 
@@ -207,7 +209,8 @@ export default {
     MenuBottom,
     ShareIcon,
     ChevronLeftIcon,
-    ConfirmOrderMessage,
+    ConfirmOrderDialog,
+    ConfirmAddedToCartDialog,
     ProductOption,
     ProductOrder,
   },
@@ -216,7 +219,7 @@ export default {
     return {
       order: ProductToCart,
       drink: DrinkDetail,
-      isAddToCart: '',
+      isAddedToCart: '',
       isAddOrder: '',
     };
   },
@@ -280,17 +283,14 @@ export default {
         options: this.order.options,
         cupSize: this.order.cupSize,
       };
-      console.log('this.order', this.order);
-      console.log('payload: ', payload);
       const response = await apiClient.addItemToCart(payload);
-      console.log('response', response);
-      this.isAddToCart = response.data.result;
+      this.isAddedToCart = response.data.result;
+      console.log(response);
     },
     async addOrder() {
       const apiClient = new OrderApi();
       const response = await apiClient.createOrder();
       this.isAddOrder = response.data.result;
-      console.log(response);
     },
   },
   computed: {
