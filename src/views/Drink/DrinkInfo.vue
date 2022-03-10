@@ -118,6 +118,7 @@
       <button
         v-for="size in drink.cupSizes"
         :key="size.optionNo"
+        @click="setCupSize(size.optionNo)"
         :data-test="`drink-size-${size.name}`"
         class="
           w-1/4
@@ -159,106 +160,29 @@
     >
       퍼스널 옵션
     </h4>
-    <div
-      class="grid grid-cols-6 grid-flow-col"
-      data-test="drink-personal-option-container"
+    <ProductOption
+      v-for="option in drink.options"
+      :key="option.optionNo"
+      :option="option"
+      @updateOption="changeOption"
     >
-      <div
-        v-for="option in drink.options"
-        :key="option.optionNo"
-        class="col-start-1 col-end-7 my-0.5"
-        data-test="drink-personal-option-name"
-      >
-        {{ option.name }}
-      </div>
-      <div
-        v-for="(option, index) in drink.options"
-        :key="option.optionNo"
-        class="col-start-8 col-end-12 my-0.5"
-        data-test="drink-personal-option-counter"
-      >
-        <button
-          class="border-2 border-black rounded-full w-7 h-7 disabled:opacity-25"
-          :disabled="option.baseQuantity <= 1"
-          @click="decreOption(index)"
-          data-test="decrease-button"
-        >
-          -
-        </button>
-        <span class="mx-2" data-test="personal-option-quantity">
-          {{ option.baseQuantity }}
-        </span>
-        <button
-          class="border-2 border-black rounded-full w-7 h-7 disabled:opacity-25"
-          :disabled="option.baseQuantity >= 10"
-          @click="increOption(index)"
-          data-test="increase-button"
-        >
-          +
-        </button>
-      </div>
-    </div>
+      <template v-slot:optionQuantity>
+        {{ currentOptionQuantity(option.optionNo) }}
+      </template>
+    </ProductOption>
     <hr class="my-3" />
-    <div
-      class="mx-4 mb-16 grid grid-cols-6"
-      data-test="drink-draft-order-container"
+    <ProductOrder
+      @updateQuantity="changeQuantity"
+      @proceedOrder="addOrder"
+      @updateProductToCart="addProductToCart"
     >
-      <div class="col-start-1 col-end-7" data-test="drink-quantity-counter">
-        <button
-          class="border-2 border-black rounded-full w-8 h-8 disabled:opacity-25"
-          :disabled="drink.defaultQuantity <= 1"
-          @click="decrementDrinkQuantity()"
-          data-test="drink-counter-decrease"
-        >
-          -
-        </button>
-        <span class="mx-2" data-test="drink-quantity">{{
-          drink.defaultQuantity
-        }}</span>
-        <button
-          class="border-2 border-black rounded-full w-8 h-8 disabled:opactiy-25"
-          :disabled="drink.defaultQuantity >= 10"
-          @click="incrementDrinkQuantity()"
-          data-test="drink-counter-increase"
-        >
-          +
-        </button>
-      </div>
-      <div
-        class="mx-2 text-xl col-start-8 col-end-12"
-        data-test="drink-final-price"
-      >
-        {{ finalPriceWithFormat }}
-      </div>
-      <button class="my-4 col-start-1 col-end-2" data-test="drink-is-favorite">
-        <HeartIcon class="h-5 w-5" />
-      </button>
-      <div class="col-start-7 col-end-12">
-        <button
-          class="mx-2 border-2 rounded-full w-16 h-8"
-          data-test="drink-to-cart"
-          @click="addProductToCart()"
-        >
-          담기
-        </button>
-        <button
-          class="
-            bg-emerald-400
-            hover:bg-emerald-600
-            active:bg-emerald-800
-            text-white
-            border-2
-            rounded-full
-            w-32
-            h-8
-          "
-          @click="addOrder()"
-          data-test="drink-order"
-        >
-          주문하기
-        </button>
-      </div>
-    </div>
+      <template v-slot:finalPrice>
+        {{ finalPrice }}
+      </template>
+      <template v-slot:drinkQuantity>
+        {{ order.quantity }}
+      </template>
+    </ProductOrder>
   </div>
   <Teleport to="body">
     <ConfirmOrderMessage :isAddOrder="isAddOrder"> </ConfirmOrderMessage>
@@ -267,25 +191,30 @@
 </template>
 
 <script>
-import { ShareIcon, ChevronLeftIcon, HeartIcon } from '@heroicons/vue/outline';
+import { ShareIcon, ChevronLeftIcon } from '@heroicons/vue/outline';
 import MenuBottom from '@/components/MenuBottom.vue';
 import DrinkDetail from '@/model/drink/drinkDetail';
+import ProductToCart from '@/model/drink/productToCart';
 import DrinkApi from '@/api/drink/DrinkApi';
 import CartApi from '@/api/order/CartApi';
 import OrderApi from '@/api/order/OrderApi';
 import ConfirmOrderMessage from '@/components/modal/OrderModal.vue';
+import ProductOption from '@/components/ProductOption.vue';
+import ProductOrder from '@/components/ProductOrder.vue';
 
 export default {
   components: {
     MenuBottom,
     ShareIcon,
     ChevronLeftIcon,
-    HeartIcon,
     ConfirmOrderMessage,
+    ProductOption,
+    ProductOrder,
   },
 
   data() {
     return {
+      order: ProductToCart,
       drink: DrinkDetail,
       isAddToCart: '',
       isAddOrder: '',
@@ -294,65 +223,89 @@ export default {
   async created() {
     const apiClient = new DrinkApi();
     const response = await apiClient.getProductDetail(this.$route.params.id);
-    const originalDrinks = this.drink;
-    this.drink = Object.assign(originalDrinks, response.data.product);
+    this.drink = Object.assign(this.drink, response.data.product);
+    this.order.options = this.initOption();
   },
   methods: {
+    initOption() {
+      return this.drink.options.map((option) => ({
+        ...option,
+        quantity: option.baseQuantity,
+      }));
+    },
+    isOptionChangeable(orderOptionIndex, optionVal) {
+      const currentQuantity = this.order.options[orderOptionIndex].quantity;
+      const { baseQuantity } = this.drink.options[orderOptionIndex];
+      return optionVal > 0 || (optionVal < 0 && currentQuantity > baseQuantity);
+    },
+    changeOption(e) {
+      const { optionNo, value } = e;
+      const orderOptionIndex = this.order.options.findIndex(
+        (option) => option.optionNo === optionNo,
+      );
+      if (this.isOptionChangeable(orderOptionIndex, value)) {
+        this.order.options[orderOptionIndex].quantity += value;
+      }
+    },
+    isQuantityChangeable(optionVal) {
+      return optionVal > 0 || (optionVal < 0 && this.order.quantity > 1);
+    },
+    changeQuantity(e) {
+      if (this.isQuantityChangeable(e)) {
+        this.order.quantity += e;
+      }
+    },
+    currentOptionQuantity(optionNo) {
+      return this.order.options.find((option) => option.optionNo === optionNo)
+        .quantity;
+    },
+    findOptionInOrder(optionNo) {
+      return this.order.options.find((option) => option.optionNo === optionNo);
+    },
     priceWithFormat(price) {
       return `${price.toLocaleString()}원`;
     },
     setTemperature(value) {
+      console.log(this.order);
       this.drink.temperature = value;
     },
-    increOption(idx) {
-      this.drink.options[idx].baseQuantity += 1;
-    },
-    decreOption(idx) {
-      this.drink.options[idx].baseQuantity -= 1;
-    },
-    incrementDrinkQuantity() {
-      this.drink.defaultQuantity += 1;
-    },
-    decrementDrinkQuantity() {
-      this.drink.defaultQuantity -= 1;
+    setCupSize(value) {
+      this.order.cupsize = value;
     },
     async addProductToCart() {
       const apiClient = new CartApi();
       const payload = {
-        productNo: this.drink.productNo,
-        quantity: this.drink.defaultQuantity,
-        options: this.drink.options,
+        productNo: Number(this.$route.params.id),
+        quantity: this.order.quantity,
+        options: this.order.options,
+        cupSize: this.order.cupSize,
       };
-      console.log(payload);
+      console.log('this.order', this.order);
+      console.log('payload: ', payload);
       const response = await apiClient.addItemToCart(payload);
+      console.log('response', response);
       this.isAddToCart = response.data.result;
-      console.log('cart', this.isAddToCart);
     },
     async addOrder() {
       const apiClient = new OrderApi();
       const response = await apiClient.createOrder();
       this.isAddOrder = response.data.result;
-      console.log(this.isAddOrder);
+      console.log(response);
     },
   },
   computed: {
-    personalOptionQuantity() {
-      return this.drink.personalOption.espressoShot.defaultQuantity;
+    optionPriceTotal() {
+      return this.order.options
+        .map(
+          (option) => option.unitprice * (option.quantity - option.baseQuantity),
+        )
+        .reduce((prev, current) => prev + current, 0);
     },
-    finalPriceWithFormat() {
-      const price = this.drink.defaultPrice;
-      const quantity = this.drink.defaultQuantity;
-      const { options } = this.drink;
-      let optPriceTotal = 0;
-
-      for (let i = 0; i < options.length; i += 1) {
-        const optPrice = options[i].unitprice * options[i].baseQuantity;
-        optPriceTotal += optPrice;
-      }
-
-      const finalPrice = (price + optPriceTotal) * quantity;
-
-      return `${finalPrice.toLocaleString()}원`;
+    finalPrice() {
+      return `${(
+        (this.drink.price + this.optionPriceTotal)
+        * this.order.quantity
+      ).toLocaleString()}원`;
     },
   },
 };
