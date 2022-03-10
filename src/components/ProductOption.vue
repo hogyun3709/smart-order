@@ -62,7 +62,6 @@ export default {
   },
   computed: {
     unitPriceFormat() {
-      console.log(this.option);
       return `${this.option.unitprice.toLocaleString()}원`;
     },
   },
