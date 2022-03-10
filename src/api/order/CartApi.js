@@ -9,4 +9,9 @@ export default class CartApi {
     const result = await this.clientInstance.post('/cart', payload);
     return result;
   }
+
+  async getProductsInCart() {
+    const result = await this.clientInstance.get('/cart');
+    return result;
+  }
 }
