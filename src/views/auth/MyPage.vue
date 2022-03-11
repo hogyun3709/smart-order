@@ -48,7 +48,7 @@ export default {
   methods: {},
 
   async created() {
-    const apiClient = new MyPageApi();
+    const apiClient = new MyPageApi(this.apiClient);
     const response = await apiClient.getUserInfo();
     this.userDetails = response.data;
   },

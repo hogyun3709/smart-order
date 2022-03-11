@@ -1,12 +1,12 @@
 import BaseClient from '@/api/BaseClient';
 
 export default class MyPageApi {
-  constructor(clientInstance) {
-    this.clientInstance = clientInstance || new BaseClient().instance;
+  constructor(client = undefined) {
+    this.client = client || new BaseClient();
   }
 
   async getUserInfo() {
-    const result = await this.clientInstance.get('/info');
+    const result = await this.client.instance.get('/info');
     return result;
   }
 }
