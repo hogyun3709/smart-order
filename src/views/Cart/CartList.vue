@@ -1,7 +1,11 @@
 <template>
   <div class="mx-3 my-3" data-test="cart-list-container">
     <h2 class="text-xl font-bold" data-test="cart-list-title">장바구니</h2>
-    <CartItem v-for="cart in carts" :key="cart.product.productNo" v-bind="cart" />
+    <CartItem
+      v-for="cart in carts"
+      :key="cart.product.productNo"
+      v-bind="cart"
+    />
     <MenuBottom />
   </div>
 </template>
@@ -23,7 +27,7 @@ export default {
     };
   },
   async created() {
-    const apiClient = new CartApi();
+    const apiClient = new CartApi(this.apiClient);
     const response = await apiClient.getProductsInCart();
     this.carts = response.data.cart;
   },
