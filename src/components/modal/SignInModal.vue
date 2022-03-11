@@ -13,7 +13,7 @@
           >
             회원가입에 성공하였습니다.
           </h2>
-          <router-link to="/mypage">
+          <router-link to="/">
             <button
               class="
                 bg-blue-500
@@ -28,40 +28,13 @@
               "
               data-test="go-to-mypage-button"
             >
-              마이페이지로 가기
+              로그인 페이지로
             </button>
           </router-link>
         </div>
       </div>
     </div>
   </Transition>
-  <!-- <Transition name="modal">
-    <div v-if="isUserCreated === 'error'" class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-container">
-          <h2 class="my-4 font-bold text-lg text-center">
-            회원가입에 실패하였습니다. 다시 시도해주세요.
-          </h2>
-          <button
-            class="
-              bg-red-500
-              hover:bg-red-500/75
-              active:bg-red-500/50
-              text-white
-              font-bold
-              py-2
-              px-4
-              rounded
-              w-full
-            "
-            @click="$emit('close')"
-          >
-            다시 시도하기
-          </button>
-        </div>
-      </div>
-    </div>
-  </Transition> -->
 </template>
 
 <script>
