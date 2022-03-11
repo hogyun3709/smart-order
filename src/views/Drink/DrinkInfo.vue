@@ -186,7 +186,9 @@
   </div>
   <Teleport to="body">
     <ConfirmOrderDialog :isAddOrder="isAddOrder"> </ConfirmOrderDialog>
-    <ConfirmAddedToCartDialog :isAddedToCart="isAddedToCart"></ConfirmAddedToCartDialog>
+    <ConfirmAddedToCartDialog
+      :isAddedToCart="isAddedToCart"
+    ></ConfirmAddedToCartDialog>
   </Teleport>
   <MenuBottom />
 </template>
@@ -224,7 +226,7 @@ export default {
     };
   },
   async created() {
-    const apiClient = new DrinkApi();
+    const apiClient = new DrinkApi(this.apiClient);
     const response = await apiClient.getProductDetail(this.$route.params.id);
     this.drink = Object.assign(this.drink, response.data.product);
     this.order.options = this.initOption();
@@ -276,7 +278,7 @@ export default {
       this.order.cupsize = value;
     },
     async addProductToCart() {
-      const apiClient = new CartApi();
+      const apiClient = new CartApi(this.apiClient);
       const payload = {
         productNo: Number(this.$route.params.id),
         quantity: this.order.quantity,
@@ -288,7 +290,7 @@ export default {
       console.log(response);
     },
     async addOrder() {
-      const apiClient = new OrderApi();
+      const apiClient = new OrderApi(this.apiClient);
       const response = await apiClient.createOrder();
       this.isAddOrder = response.data.result;
     },

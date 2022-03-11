@@ -12,7 +12,7 @@ export default class DrinkApi {
   }
 
   async getProductDetail(productNo) {
-    const result = await this.clientInstance.get(`/product/${productNo}`);
+    const result = await this.client.instance.get(`/product/${productNo}`);
 
     return result;
   }

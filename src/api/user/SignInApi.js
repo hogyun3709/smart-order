@@ -1,12 +1,12 @@
 import BaseClient from '@/api/BaseClient';
 
 export default class SignInApi {
-  constructor(clientInstance) {
-    this.clientInstance = clientInstance || new BaseClient().instance;
+  constructor(client = undefined) {
+    this.client = client || new BaseClient();
   }
 
   async createUser(payload) {
-    const result = await this.clientInstance.post('/join', payload);
+    const result = await this.client.instance.post('/join', payload);
     return result;
   }
 }

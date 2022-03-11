@@ -212,7 +212,7 @@ export default {
   },
   methods: {
     async signIn() {
-      const apiClient = new SignInApi();
+      const apiClient = new SignInApi(this.apiClient);
       const payload = {
         username: this.username,
         nickname: this.nickname,
