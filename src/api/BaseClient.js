@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = 'https://taling.projectlion.lkaybob.pe.kr/api';
 
-class BaseClient {
+export default class BaseClient {
 	#ACCESS_TOKEN = '';
 
 	#CLIENT_ID = 'web-app';
@@ -19,7 +19,7 @@ class BaseClient {
 
 	getBasicAuth() {
 	  const SOURCE_STRING = `${this.#CLIENT_ID}:${this.#CLIENT_SECRET}`;
-	  return window.btoa(SOURCE_STRING);
+	  return btoa(SOURCE_STRING);
 	}
 
 	get instance() {
@@ -32,5 +32,3 @@ class BaseClient {
 	  this.#ACCESS_TOKEN = accessToken;
 	}
 }
-
-export default BaseClient;

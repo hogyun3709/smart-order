@@ -1,12 +1,12 @@
 import BaseClient from '@/api/BaseClient';
 
 export default class DrinkApi {
-  constructor(clientInstance) {
-    this.clientInstance = clientInstance || new BaseClient().instance;
+  constructor(client = undefined) {
+    this.client = client || new BaseClient();
   }
 
   async getProducts() {
-    const result = await this.clientInstance.get('/product');
+    const result = await this.client.instance.get('/product');
 
     return result;
   }

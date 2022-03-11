@@ -73,6 +73,7 @@
           rounded
           w-full
         "
+        @click="login()"
         data-test="log-in-button"
       >
         로그인
@@ -101,12 +102,26 @@
 </template>
 
 <script>
+import LogInApi from '@/api/user/LogInApi';
+
 export default {
   data() {
     return {
       username: '',
       password: '',
     };
+  },
+  methods: {
+    async login() {
+      const loginApi = new LogInApi(this.apiClient);
+      const response = await loginApi.login(this.username, this.password);
+      if (response) {
+        await this.$router.push('/product');
+      } else {
+        // eslint-disable-next-line no-alert
+        alert('아이디와 비밀번호를 다시 확인해주세요');
+      }
+    },
   },
 };
 </script>

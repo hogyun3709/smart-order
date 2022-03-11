@@ -48,7 +48,7 @@ export default {
     },
   },
   async created() {
-    const apiClient = new DrinkApi();
+    const apiClient = new DrinkApi(this.apiClient);
     const response = await apiClient.getProducts();
     const originalDrinks = this.drinks;
     this.drinks = Object.assign(originalDrinks, response.data.products);
