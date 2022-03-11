@@ -30,11 +30,9 @@
       data-test="cart-item-choice-detail-container"
     >
       <div data-test="cart-primary-choice-container">
-        <span class="text-gray-500" data-test="cart-item-temperature"> </span>
         <span class="text-gray-500" data-test="cart-item-size">
-          | {{ cupSize.name }}
+          {{ cupSize.name }}
         </span>
-        <span class="text-gray-500" data-test="cart-item-cup-type"> </span>
       </div>
       <div
         class="text-gray-500"
@@ -88,7 +86,6 @@
       class="grid col-start-7 col-span-2 justify-items-end"
       data-test="cart-item-final-price"
     >
-      {{ optionPriceTotal }}
       {{ finalPrice }}
     </div>
   </div>
@@ -107,7 +104,7 @@ export default {
       type: Object,
       default() {
         return {
-          productNo: { type: String, default: '' },
+          productNo: { type: Number, default: -1 },
           nameKr: { type: String, default: '' },
           nameEng: { type: String, default: '' },
           isNewProduct: { type: Boolean, default: false },
@@ -141,7 +138,7 @@ export default {
       default() {
         return {
           name: { type: String, default: '' },
-          unitprice: { type: String, default: '' },
+          unitprice: { type: Number, default: -1 },
           baseQuantity: { type: Number, default: -1 },
           optionNo: { type: Number, default: -1 },
         };
