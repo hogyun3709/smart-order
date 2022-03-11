@@ -22,11 +22,9 @@ describe('장바구니 목록 페이지의 Single Item 컴포넌트로써 존재
     expect(wrapper.find('div[data-test="cart-item-choice-detail-container"]').exists()).toBeTruthy();
   });
 
-  it('장바구니로 등록된 아이템의 내용중 온도와, 사이즈, 컵에 대한 내용을 담을 container와 각 elements 들의 존재여부', () => {
+  it('장바구니로 등록된 아이템의 내용중 사이즈에 대한 내용을 담을 container와 각 elements 들의 존재여부', () => {
     expect(wrapper.find('div[data-test="cart-primary-choice-container"]').exists()).toBeTruthy();
-    expect(wrapper.find('span[data-test="cart-item-temperature"]').exists()).toBeTruthy();
     expect(wrapper.find('span[data-test="cart-item-size"]').exists()).toBeTruthy();
-    expect(wrapper.find('span[data-test="cart-item-cup-type"]').exists()).toBeTruthy();
   });
 
   it('장바구니로 등록된 아이템의 내용중 가격정보를 렌더링할 container의 존재여부', () => {
@@ -46,82 +44,72 @@ describe('장바구니 목록 페이지의 Single Item 컴포넌트로써 존재
   });
 });
 
-// describe('장바구니 목록페이지에서 props로 보낸 data들의 binding이 이루어지는지를 확인합니다', () => {
-//   const testProps = {
-//     name: 'test name',
-//     nameEng: 'test name english',
-//     temperature: 'Ice Only',
-//     size: 'test size',
-//     cupType: 'test Cup Type',
-//     image: 'test image url',
-//     personalOption: [{
-//       name: 'test',
-//       defaultQuantity: 99,
-//       price: 8888,
-//     }],
-//     defaultPrice: 9999,
-//     defaultQuantity: 99,
-//   };
+describe('장바구니 목록페이지에서 props로 보낸 data들의 binding이 이루어지는지를 확인합니다', () => {
+  const testProps = {
+    product: {
+      productNo: 99,
+      nameKr: '테스트 음료이름',
+      nameEng: 'test Drink Name',
+      isNewProduct: false,
+      isHot: false,
+      imgUrl: 'example.com',
+      price: 1000,
+    },
+    quantity: 9,
+    cupSize: {
+      optionNo: 10,
+      name: '빅사이즈',
+    },
+    options: {
+      optionNo: 99,
+      quantity: 9,
+    },
+    optionsInfo: {
+      name: '허니버터 시럽',
+      unitprice: 99,
+      baseQuantity: 0,
+      optoinNo: 98,
+    },
+  };
+  let wrapper;
+  beforeEach(() => {
+    wrapper = mount(CartListItem, {
+      props: {
+        ...testProps,
+      },
+    });
+  });
 
-//   const wrapper = mount(CartListItem, {
-//     props: {
-//       ...testProps,
-//     },
-//   });
+  it('장바구니에 담긴 상품의 한글명이 props와 매칭하여 렌더링되는지', () => {
+    expect(wrapper.find('p[data-test="cart-item-name"]').text()).toBe(testProps.product.nameKr);
+  });
 
-//   it('장바구니에 담긴 상품의 한글명이 props와 매칭하여 렌더링되는지', () => {
-//     expect(wrapper.find('p[data-test="cart-item-name"]').text()).toEqual(testProps.name);
-//   });
+  it('장바구니에 담긴 상품의 영문명이 props와 매칭하여 렌더링되는지', () => {
+    expect(wrapper.find('p[data-test="cart-item-name-english"]').text()).toBe(testProps.product.nameEng);
+  });
 
-//   it('장바구니에 담긴 상품의 영문명이 props와 매칭하여 렌더링되는지', () => {
-//     expect(wrapper.find('p[data-test="cart-item-name-english"]').text()).toEqual(testProps.nameEng);
-//   });
+  it('장바구니의 담긴 상품의 사이즈가 props와 매칭하여 렌더링되는지', () => {
+    expect(wrapper.find('span[data-test="cart-item-size"]').text()).toBe(testProps.cupSize.name);
+  });
 
-//   it('장바구니에 담긴 상품의 온도가 props와 매칭하여 렌더링되는지', () => {
-//     expect(wrapper.find('span[data-test="cart-item-temperature"]').text()).toEqual(testProps.temperature);
-//   });
+  it('장바구니에 담긴 상품의 기본 가격이 props와 매칭하여 의도한 포맷으로 렌더링 되는지', () => {
+    const testDefaultPriceFormat = '1,000원';
+    expect(wrapper.find('span[data-test="cart-item-default-price"]').text()).toBe(testDefaultPriceFormat);
+  });
 
-//   it('장바구니의 담긴 상품의 사이즈가 props와 매칭하여 렌더링되는지', () => {
-//     expect(wrapper.find('span[data-test="cart-item-size"]').text()).toContain(testProps.size);
-//   });
+  it('장바구니에 담긴 상품의 수량이 props와 매칭하여 렌더링되는지', () => {
+    expect(wrapper.find('span[data-test="cart-item-quantity"]').text()).toBe(testProps.quantity.toString());
+  });
 
-//   it('장바구니에 담긴 상품의 컵종류가 props와 매칭하여 렌더링되는지', () => {
-//     expect(wrapper.find('span[data-test="cart-item-cup-type"]').text()).toContain(testProps.cupType);
-//   });
+  it('장바구니에 담긴 상품의 최종가격이 props에 정보들을 반영하여 렌더링되는지', async () => {
+    const testFinalPriceWithFormat = '4,000원';
 
-//   it('장바구니에 담긴 상품의 퍼스널 옵션의 종류이름이 props와 매칭하여 렌더링 되는지', () => {
-//     expect(wrapper.find('span[data-test="cart-option-name"]').text()).toContain(testProps.personalOption[0].name);
-//   });
-
-//   it('장바구니에 담긴 상품의 퍼스널 옵션의 수량이 props와 매칭하여 렌더링 되는지', () => {
-//     expect(wrapper.find('span[data-test="cart-option-quantity"]').text()).toContain(testProps.personalOption[0].defaultQuantity.toString());
-//   });
-
-//   it('장바구니에 담긴 상품의 기본 가격이 props와 매칭하여 의도한 포맷으로 렌더링 되는지', () => {
-//     const testDefaultPriceFormat = '9,999원';
-//     expect(wrapper.find('span[data-test="cart-item-default-price"]').text()).toContain(testDefaultPriceFormat);
-//   });
-
-//   it('장바구니에 담긴 상품의 퍼스널 옵션 가격이 props와 매칭하여 의도한 포맷으로 렌더링되는지,', () => {
-//     const testOptionPriceFormat = '8,888원';
-//     expect(wrapper.find('span[data-test="cart-option-price"]').text()).toEqual(testOptionPriceFormat);
-//   });
-
-//   it('장바구니에 담긴 상품의 수량이 props와 매칭하여 렌더링되는지', () => {
-//     expect(wrapper.find('span[data-test="cart-item-quantity"]').text()).toEqual(testProps.defaultQuantity.toString());
-//   });
-
-//   it('장바구니에 담긴 상품의 최종가격이 props에 정보들을 반영하여 렌더링되는지', async () => {
-//     const testFinalPriceWithFormat = '8,000원';
-
-//     await wrapper.setProps({
-//       personalOption: [{
-//         defaultQuantity: 2,
-//         price: 500,
-//       }],
-//       defaultPrice: 3000,
-//       defaultQuantity: 2,
-//     });
-//     expect(wrapper.find('div[data-test="cart-item-final-price"]').text()).toContain(testFinalPriceWithFormat);
-//   });
-// });
+    await wrapper.setProps({
+      product: {
+        price: 2000,
+      },
+      quantity: 2,
+    });
+    expect(wrapper.find('div[data-test="cart-item-final-price"]').text()).toContain(testFinalPriceWithFormat);
+  });
+});
