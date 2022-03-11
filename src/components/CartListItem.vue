@@ -150,7 +150,7 @@ export default {
   },
   methods: {
     priceWithFormat(price) {
-      return `${price.toLocaleString()}원`;
+      return price ? `${price.toLocaleString()}원` : '';
     },
   },
   computed: {
