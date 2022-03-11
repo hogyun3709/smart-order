@@ -1,8 +1,8 @@
-import BasicHttpClient from '../BasicHttpClient';
+import BaseClient from '@/api/BaseClient';
 
 export default class SignInApi {
   constructor(clientInstance) {
-    this.clientInstance = clientInstance || new BasicHttpClient().instance;
+    this.clientInstance = clientInstance || new BaseClient().instance;
   }
 
   async createUser(payload) {

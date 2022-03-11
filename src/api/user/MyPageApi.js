@@ -1,8 +1,8 @@
-import OAuthHttpClient from '../OAuthHttpClient';
+import BaseClient from '@/api/BaseClient';
 
 export default class MyPageApi {
   constructor(clientInstance) {
-    this.clientInstance = clientInstance || new OAuthHttpClient().instance;
+    this.clientInstance = clientInstance || new BaseClient().instance;
   }
 
   async getUserInfo() {
