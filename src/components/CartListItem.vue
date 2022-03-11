@@ -8,7 +8,7 @@
         w-24
         justify-self-center
       "
-      :src="image"
+      :src="product.imgUrl"
       alt="cart-item-image"
       data-test="cart-item-image"
     />
@@ -18,10 +18,10 @@
     >
       <div>
         <p class="font-bold" data-test="cart-item-name">
-          {{ name }}
+          {{ product.nameKr }}
         </p>
         <p class="text-gray-300 text-xs" data-test="cart-item-name-english">
-          {{ nameEng }}
+          {{ product.nameEng }}
         </p>
       </div>
     </div>
@@ -30,26 +30,26 @@
       data-test="cart-item-choice-detail-container"
     >
       <div data-test="cart-primary-choice-container">
-        <span class="text-gray-500" data-test="cart-item-temperature">
-          {{ temperature }}
-        </span>
         <span class="text-gray-500" data-test="cart-item-size">
-          | {{ size }}
-        </span>
-        <span class="text-gray-500" data-test="cart-item-cup-type">
-          | {{ cupType }}
+          {{ cupSize.name }}
         </span>
       </div>
       <div
         class="text-gray-500"
-        v-for="option in personalOption"
-        :key="option.name"
+        v-for="option in optionsInfo"
+        :key="option.optionNo"
         data-test="cart-option-detail-container"
       >
         <span data-test="cart-option-name">{{ option.name }}</span>
-        <span class="mx-2" data-test="cart-option-quantity">
-          {{ option.defaultQuantity }}
-        </span>
+        <div
+          class="text-gray-500 inline-block"
+          v-for="option in options"
+          :key="option.optionNo"
+        >
+          <span class="mx-2" data-test="cart-option-quantity">
+            {{ option.quantity }}
+          </span>
+        </div>
       </div>
     </div>
     <div
@@ -57,28 +57,26 @@
       data-test="cart-item-price-container"
     >
       <span class="text-gray-500" data-test="cart-item-default-price">
-        {{ priceWithFormat(defaultPrice) }}
+        {{ priceWithFormat(product.price) }}
       </span>
-      <div v-for="option in personalOption" :key="option.name">
+      <div v-for="option in optionsInfo" :key="option.optionNo">
         <span class="text-gray-500" data-test="cart-option-price">
-          {{ priceWithFormat(option.price) }}
+          {{ priceWithFormat(option.unitprice) }}
         </span>
       </div>
     </div>
     <div class="col-start-2 col-end-6" data-test="cart-item-counter">
       <button
-        class="border-2 border-black rounded-full w-7 h-7 disabled:opacity-25"
-        :disabled="defaultQuantity <= 1"
+        class="border-2 border-black rounded-full w-7 h-7"
         data-test="cart-option-decrease-button"
       >
         -
       </button>
       <span class="mx-4" data-test="cart-item-quantity">
-        {{ defaultQuantity }}
+        {{ quantity }}
       </span>
       <button
-        class="border-2 border-black rounded-full w-7 h-7 disabled:opacity-25"
-        :disabled="defaultQuantity >= 10"
+        class="border-2 border-black rounded-full w-7 h-7"
         data-test="cart-option-increase-button"
       >
         +
@@ -88,7 +86,7 @@
       class="grid col-start-7 col-span-2 justify-items-end"
       data-test="cart-item-final-price"
     >
-      {{ finalPriceWithformat }}
+      {{ finalPrice }}
     </div>
   </div>
   <hr class="my-4" />
@@ -96,45 +94,75 @@
 
 <script>
 export default {
+  data() {
+    return {
+      cartOptions: [],
+    };
+  },
   props: {
-    id: { type: String, default: '' },
-    name: { type: String, default: '' },
-    nameEng: { type: String, default: '' },
-    temperature: { type: String, default: null },
-    size: { type: String, default: '' },
-    cupType: { type: String, default: '' },
-    image: { type: String, defaul: '' },
-    personalOption: {
+    product: {
       type: Object,
       default() {
-        return {};
+        return {
+          productNo: { type: Number, default: -1 },
+          nameKr: { type: String, default: '' },
+          nameEng: { type: String, default: '' },
+          isNewProduct: { type: Boolean, default: false },
+          isHot: { type: Boolean, default: false },
+          imgUrl: { type: String, default: '' },
+          price: { type: Number, default: -1 },
+        };
       },
-      name: { type: String, default: '' },
-      defaultQuantity: { type: Number, default: -1 },
-      price: { type: Number, default: -1 },
     },
-    defaultPrice: { type: Number, default: -1 },
-    defaultQuantity: { type: Number, default: -1 },
+    quantity: { type: Number, default: -1 },
+    cupSize: {
+      type: Object,
+      default() {
+        return {
+          optionNo: { type: Number, default: -1 },
+          name: { type: String, default: '' },
+        };
+      },
+    },
+    options: {
+      type: Object,
+      default() {
+        return {
+          optionNo: { type: Number, default: -1 },
+          quantity: { type: Number, default: -1 },
+        };
+      },
+    },
+    optionsInfo: {
+      type: Object,
+      default() {
+        return {
+          name: { type: String, default: '' },
+          unitprice: { type: Number, default: -1 },
+          baseQuantity: { type: Number, default: -1 },
+          optionNo: { type: Number, default: -1 },
+        };
+      },
+    },
   },
   methods: {
     priceWithFormat(price) {
-      return `${price.toLocaleString()}원`;
+      return price ? `${price.toLocaleString()}원` : '';
     },
   },
   computed: {
-    finalPriceWithformat() {
-      const price = this.defaultPrice;
-      const quantity = this.defaultQuantity;
-      const opt = this.personalOption;
-
-      let optPrice = 0;
-
-      for (let i = 0; i < this.personalOption.length; i += 1) {
-        optPrice += opt[i].defaultQuantity * opt[i].price;
+    optionPriceTotal() {
+      let total = 0;
+      for (let i = 0; i < this.options.length; i += 1) {
+        total += this.options[i].quantity * this.optionsInfo[i].unitprice;
       }
-
-      const finalPrice = (price + optPrice) * quantity;
-      return `${finalPrice.toLocaleString()}원`;
+      return total;
+    },
+    finalPrice() {
+      return `${(
+        (this.product.price + this.optionPriceTotal)
+        * this.quantity
+      ).toLocaleString()}원`;
     },
   },
 };

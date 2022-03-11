@@ -6,11 +6,10 @@
       data-test="bottom-navigation-section"
     >
       <div class="flex justify-between" data-test="bottom-navigation-flex">
-        <a
+        <router-link
           v-for="menu in menus"
           :key="menu.text"
-          data-test="nav-menus"
-          :href="`${menu.link}`"
+          :to="`${menu.link}`"
           class="
             w-full
             focus:text-teal-500
@@ -21,19 +20,25 @@
             pt-2
             pb-1
           "
+          data-test="nav-menus"
         >
           <span data-test="nav-menu-icon">
             <component :is="menu.icon" class="w-5 h-5 inline-block" />
           </span>
           <p data-test="nav-menu-text">{{ menu.text }}</p>
-        </a>
+        </router-link>
       </div>
     </section>
   </div>
 </template>
 
 <script>
-import { HomeIcon, ShoppingCartIcon, CogIcon } from '@heroicons/vue/outline';
+import {
+  HomeIcon,
+  ClipboardListIcon,
+  ShoppingCartIcon,
+  CogIcon,
+} from '@heroicons/vue/outline';
 
 export default {
   data() {
@@ -45,13 +50,19 @@ export default {
           link: '/',
         },
         {
+          icon: ClipboardListIcon,
+          text: '주문',
+          link: '/product',
+        },
+        {
           icon: ShoppingCartIcon,
           text: '장바구니',
           link: '/cart',
         },
         {
           icon: CogIcon,
-          text: '설정',
+          text: '마이페이지',
+          link: '/mypage',
         },
       ],
     };
