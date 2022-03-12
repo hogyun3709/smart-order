@@ -1,4 +1,5 @@
 import BaseClient from '@/api/BaseClient';
+import store from '@/store';
 
 export default class LogInApi {
   constructor(client = undefined) {
@@ -16,7 +17,9 @@ export default class LogInApi {
     );
 
     if (response.status === 200) {
-      this.client.ACCESS_TOKEN = response.data.access_token;
+      store.dispatch('setToken', response.data.access_token);
+      this.client.ACCESS_TOKEN = store.state.access_token;
+
       return true;
     }
     return false;
