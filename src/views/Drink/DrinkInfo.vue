@@ -289,7 +289,7 @@ export default {
     async addOrder() {
       this.isAddOrder = 'OK';
 
-      this.$store.dispatch('order/addOrder', {
+      this.$store.dispatch('addOrder', {
         name: this.drink.nameKr,
         price: this.finalPriceNonFormat,
       });

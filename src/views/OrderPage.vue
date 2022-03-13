@@ -28,16 +28,19 @@
       :isCompleteOrder="isCompleteOrder"
     ></confirm-order-complete-dialog>
   </Teleport>
+  <MenuBottom />
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import MenuBottom from '@/components/MenuBottom.vue';
 import OrderApi from '@/api/order/OrderApi';
 import ConfirmOrderCompleteDialog from '@/components/modal/OrderCompleteModal.vue';
 
 export default {
   components: {
     ConfirmOrderCompleteDialog,
+    MenuBottom,
   },
   data() {
     return {
@@ -52,7 +55,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('order', ['getOrderDescription', 'getOrderTotalPrice']),
+    ...mapGetters(['getOrderDescription', 'getOrderTotalPrice']),
   },
 };
 </script>
