@@ -25,10 +25,30 @@
                 px-4
                 rounded
                 w-full
+                my-2
               "
               data-test="go-to-mypage-button"
             >
               음료 추가 주문하러 가기
+            </button>
+          </router-link>
+          <router-link to="/product">
+            <button
+              class="
+                bg-yellow-500
+                hover:bg-yellow-500/75
+                active:bg-yellow-500/50
+                text-white
+                font-bold
+                py-2
+                px-4
+                rounded
+                w-full
+                my-2
+              "
+              data-test="go-to-mypa로e-button"
+            >
+              주문확인 페이지로
             </button>
           </router-link>
         </div>
