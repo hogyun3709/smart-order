@@ -34,22 +34,24 @@
           {{ cupSize.name }}
         </span>
       </div>
-      <div
-        class="text-gray-500"
-        v-for="option in optionsInfo"
-        :key="option.optionNo"
-        data-test="cart-option-detail-container"
-      >
-        <span data-test="cart-option-name">{{ option.name }}</span>
-        <div
-          class="text-gray-500 inline-block"
+      <div class="grid col-start-1 col-end-2">
+        <span
+          v-for="option in optionsInfo"
+          :key="option.optionNo"
+          class="text-gray-500"
+          data-test="cart-option-name"
+          >{{ option.name }}</span
+        >
+      </div>
+      <div class="grid col-start-2 col-end-3">
+        <span
           v-for="option in options"
           :key="option.optionNo"
+          class="text-gray-500"
+          data-test="cart-option-quantity"
         >
-          <span class="mx-2" data-test="cart-option-quantity">
-            {{ option.quantity }}
-          </span>
-        </div>
+          {{ option.quantity }} 개
+        </span>
       </div>
     </div>
     <div
@@ -146,6 +148,10 @@ export default {
     },
   },
   methods: {
+    optionText(options, idx) {
+      const optionInfo = this.optionsInfo[idx];
+      return `${optionInfo.name} ${options[idx].quantity.toLocaleString()}개`;
+    },
     priceWithFormat(price) {
       return price ? `${price.toLocaleString()}원` : '';
     },
