@@ -32,7 +32,7 @@
               음료 추가 주문하러 가기
             </button>
           </router-link>
-          <router-link to="/product">
+          <router-link to="/order">
             <button
               class="
                 bg-yellow-500

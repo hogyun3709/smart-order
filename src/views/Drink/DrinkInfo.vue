@@ -291,6 +291,11 @@ export default {
       const apiClient = new OrderApi(this.apiClient);
       const response = await apiClient.createOrder();
       this.isAddOrder = response.data.result;
+
+      this.$store.dispatch('order/addOrder', {
+        name: this.drink.nameKr,
+        price: this.finalPriceNonFormat,
+      });
     },
   },
   computed: {
@@ -306,6 +311,9 @@ export default {
         (this.drink.price + this.optionPriceTotal)
         * this.order.quantity
       ).toLocaleString()}원`;
+    },
+    finalPriceNonFormat() {
+      return (this.drink.price + this.optionPriceTotal) * this.order.quantity;
     },
   },
 };

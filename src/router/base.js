@@ -1,6 +1,7 @@
 import LogInPage from '@/views/auth/LogInPage.vue';
 import SignInPage from '@/views/auth/SignInPage.vue';
 import MyPage from '@/views/auth/MyPage.vue';
+import OrderPage from '@/views/OrderPage.vue';
 import ProductList from '../views/Drink/ProductList.vue';
 import Cart from '../views/Cart/CartList.vue';
 
@@ -30,5 +31,10 @@ export default [
     path: '/mypage',
     name: 'MyPage',
     components: { main: MyPage },
+  },
+  {
+    path: '/order',
+    name: 'OrderPage',
+    components: { main: OrderPage },
   },
 ];
