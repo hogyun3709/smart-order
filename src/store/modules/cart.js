@@ -13,13 +13,19 @@ const cart = {
       const arr = [];
       state.cart_items = arr.concat(item);
     },
-    INCRE_QUANTITY(state, index) {
-      state.cart_items[index].quantity += 1;
+    REMOVE_CART_ITEM(state, index) {
+      state.cart_items.splice(index, 1);
     },
   },
   actions: {
     setCartItem({ commit }, item) {
       commit('SET_CART_ITEM', item);
+    },
+    increQuantity({ commit }, index) {
+      commit('INCRE_QUANTITY', index);
+    },
+    removeCartItem({ commit }, index) {
+      commit('REMOVE_CART_ITEM', index);
     },
   },
 };

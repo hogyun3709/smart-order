@@ -1,16 +1,19 @@
 <template>
   <div class="mx-3 my-3" data-test="cart-list-container">
     <h2 class="text-xl font-bold" data-test="cart-list-title">장바구니</h2>
+    <hr class="my-4" />
     <div v-if="!isLoading">
       <CartItem
         v-for="(cart, index) in getCartItems"
         :key="index"
+        :index="index"
         v-bind="cart"
       />
     </div>
     <div v-else>
       <LoadingProduct></LoadingProduct>
     </div>
+    <div class="mb-16 inline-block"></div>
     <MenuBottom />
   </div>
 </template>
@@ -37,7 +40,6 @@ export default {
   computed: {
     ...mapGetters('cart', ['getCartItems']),
   },
-  methods: {},
   async created() {
     const apiClient = new CartApi(this.apiClient);
     const response = await apiClient.getProductsInCart();
