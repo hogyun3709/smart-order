@@ -154,7 +154,9 @@ export default {
     optionPriceTotal() {
       let total = 0;
       for (let i = 0; i < this.options.length; i += 1) {
-        total += this.options[i].quantity * this.optionsInfo[i].unitprice;
+        total
+          += this.options[i].quantity * this.optionsInfo[i].unitprice
+          - this.optionsInfo[i].baseQuantity * this.optionsInfo[i].unitprice;
       }
       return total;
     },
