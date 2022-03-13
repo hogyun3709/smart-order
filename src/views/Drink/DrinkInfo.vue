@@ -200,7 +200,6 @@ import DrinkDetail from '@/model/drink/drinkDetail';
 import ProductToCart from '@/model/drink/productToCart';
 import DrinkApi from '@/api/drink/DrinkApi';
 import CartApi from '@/api/order/CartApi';
-import OrderApi from '@/api/order/OrderApi';
 import ConfirmOrderDialog from '@/components/modal/OrderModal.vue';
 import ConfirmAddedToCartDialog from '@/components/modal/ProductToCartModal.vue';
 import ProductOption from '@/components/ProductOption.vue';
@@ -288,9 +287,7 @@ export default {
       this.isAddedToCart = response.data.result;
     },
     async addOrder() {
-      const apiClient = new OrderApi(this.apiClient);
-      const response = await apiClient.createOrder();
-      this.isAddOrder = response.data.result;
+      this.isAddOrder = 'OK';
 
       this.$store.dispatch('order/addOrder', {
         name: this.drink.nameKr,
