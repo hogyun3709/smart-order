@@ -271,7 +271,6 @@ export default {
       return `${price.toLocaleString()}원`;
     },
     setTemperature(value) {
-      console.log(this.order);
       this.drink.temperature = value;
     },
     setCupSize(value) {
@@ -287,7 +286,6 @@ export default {
       };
       const response = await apiClient.addItemToCart(payload);
       this.isAddedToCart = response.data.result;
-      console.log(response);
     },
     async addOrder() {
       const apiClient = new OrderApi(this.apiClient);
