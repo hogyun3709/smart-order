@@ -1,7 +1,7 @@
 export default {
   productNo: 0,
   quantity: 1,
-  cupSize: 0,
+  cupSize: 1,
   options: [
     {
       optionNo: 0,
