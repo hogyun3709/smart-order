@@ -16,6 +16,7 @@
     <div v-else>
       <LoadingProduct></LoadingProduct>
     </div>
+    <h3>{{ finalCartItemPrice }}</h3>
     <button
       class="
         bg-green-500
@@ -30,6 +31,7 @@
         my-2
         mb-16
       "
+      @click="proceedOrder()"
       data-test="go-order-page-button"
     >
       주문하기
@@ -58,8 +60,20 @@ export default {
       isLoading: true,
     };
   },
+  methods: {
+    proceedOrder() {
+      this.$store.dispatch('addOrderFromCart', {
+        name: this.$store.state.cart.cart_items_name,
+        price: this.$store.state.cart.final_price,
+      });
+      this.$router.push('/order');
+    },
+  },
   computed: {
     ...mapGetters('cart', ['getCartItems']),
+    finalCartItemPrice() {
+      return `전체 합계: ${this.$store.state.cart.final_price.toLocaleString()}원`;
+    },
   },
   async created() {
     const apiClient = new CartApi(this.apiClient);

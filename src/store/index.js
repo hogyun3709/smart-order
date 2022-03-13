@@ -5,7 +5,6 @@ export default createStore({
   state: {
     access_token: '',
     orderSummary: [],
-
   },
   getters: {
     getAccessToken(state) {
@@ -20,6 +19,9 @@ export default createStore({
       }
       return `${state.orderSummary[0].name}외 ${state.orderSummary.length - 1}건`;
     },
+    getCartItems(state) {
+      return state.cart.cart_items;
+    },
 
   },
   mutations: {
@@ -32,6 +34,9 @@ export default createStore({
     ADD_ORDER(state, orderInfo) {
       state.orderSummary.push(orderInfo);
     },
+    ADD_ORDER_FROM_CART(state, cartInfo) {
+      state.orderSummary.push(cartInfo);
+    },
 
   },
   actions: {
@@ -43,6 +48,9 @@ export default createStore({
     },
     addOrder({ commit }, orderInfo) {
       commit('ADD_ORDER', orderInfo);
+    },
+    addOrderFromCart({ commit }, cartInfo) {
+      commit('ADD_ORDER_FROM_CART', cartInfo);
     },
   },
   modules: {

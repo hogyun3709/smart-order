@@ -2,6 +2,8 @@ const cart = {
   namespaced: true,
   state: {
     cart_items: [],
+    final_price: 0,
+    cart_items_name: '장바구니목록명',
   },
   getters: {
     getCartItems(state) {
@@ -16,16 +18,19 @@ const cart = {
     REMOVE_CART_ITEM(state, index) {
       state.cart_items.splice(index, 1);
     },
+    SET_FINAL_PRICE(state, price) {
+      state.final_price += price;
+    },
   },
   actions: {
     setCartItem({ commit }, item) {
       commit('SET_CART_ITEM', item);
     },
-    increQuantity({ commit }, index) {
-      commit('INCRE_QUANTITY', index);
-    },
     removeCartItem({ commit }, index) {
       commit('REMOVE_CART_ITEM', index);
+    },
+    setFinalPrice({ commit }, price) {
+      commit('SET_FINAL_PRICE', price);
     },
   },
 };

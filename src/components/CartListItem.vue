@@ -174,6 +174,9 @@ export default {
       return price ? `${price.toLocaleString()}원` : '';
     },
   },
+  created() {
+    this.$store.dispatch('cart/setFinalPrice', this.finalPriceNonFormat);
+  },
   computed: {
     optionPriceTotal() {
       let total = 0;
@@ -189,6 +192,9 @@ export default {
         (this.product.price + this.optionPriceTotal)
         * this.quantity
       ).toLocaleString()}원`;
+    },
+    finalPriceNonFormat() {
+      return (this.product.price + this.optionPriceTotal) * this.quantity;
     },
   },
 };
