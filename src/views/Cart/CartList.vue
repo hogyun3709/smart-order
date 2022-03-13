@@ -35,12 +35,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['getCartItems']),
+    ...mapGetters('cart', ['getCartItems']),
   },
+  methods: {},
   async created() {
     const apiClient = new CartApi(this.apiClient);
     const response = await apiClient.getProductsInCart();
-    this.$store.dispatch('setCartItem', response.data.cart);
+    this.$store.dispatch('cart/setCartItem', response.data.cart);
     this.isLoading = false;
   },
 };
