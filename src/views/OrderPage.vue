@@ -23,13 +23,22 @@
       </button>
     </div>
   </div>
+  <Teleport to="body">
+    <confirm-order-complete-dialog
+      :isCompleteOrder="isCompleteOrder"
+    ></confirm-order-complete-dialog>
+  </Teleport>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import OrderApi from '@/api/order/OrderApi';
+import ConfirmOrderCompleteDialog from '@/components/modal/OrderCompleteModal.vue';
 
 export default {
+  components: {
+    ConfirmOrderCompleteDialog,
+  },
   data() {
     return {
       isCompleteOrder: '',

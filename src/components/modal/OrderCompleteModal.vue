@@ -1,17 +1,17 @@
 <template>
   <Transition name="modal">
     <div
-      v-if="isAddOrder === 'OK'"
+      v-if="isCompleteOrder === 'OK'"
       class="modal-mask"
-      data-test="sign-in-modal-container"
+      data-test="order-complete-modal-container"
     >
       <div class="modal-wrapper">
         <div class="modal-container">
           <h2
             class="my-4 font-bold text-lg text-center"
-            data-test="sign-in-success-message"
+            data-test="order-complete-success-message"
           >
-            선택하신 상품이 주문확인 대기중입니다.
+            주문이 완료되었습니다!
           </h2>
           <router-link to="/product">
             <button
@@ -32,25 +32,6 @@
               음료 추가 주문하러 가기
             </button>
           </router-link>
-          <router-link to="/order">
-            <button
-              class="
-                bg-yellow-500
-                hover:bg-yellow-500/75
-                active:bg-yellow-500/50
-                text-white
-                font-bold
-                py-2
-                px-4
-                rounded
-                w-full
-                my-2
-              "
-              data-test="go-to-order-button"
-            >
-              주문확인 페이지로
-            </button>
-          </router-link>
         </div>
       </div>
     </div>
@@ -60,7 +41,7 @@
 <script>
 export default {
   props: {
-    isAddOrder: { type: String, default: '' },
+    isCompleteOrder: { type: String, default: '' },
   },
   methods: {},
 };
