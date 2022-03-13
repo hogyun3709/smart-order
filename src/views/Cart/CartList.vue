@@ -16,6 +16,24 @@
     <div v-else>
       <LoadingProduct></LoadingProduct>
     </div>
+    <button
+      class="
+        bg-green-500
+        hover:bg-green-500/75
+        active:bg-green-500/50
+        text-white
+        font-bold
+        py-2
+        px-4
+        rounded
+        w-full
+        my-2
+        mb-16
+      "
+      data-test="go-order-page-button"
+    >
+      주문하기
+    </button>
     <div class="mb-16 inline-block"></div>
     <MenuBottom />
   </div>
