@@ -5,7 +5,7 @@ const order = {
   },
   getters: {
     getOrderTotalPrice(state) {
-      return state.orderSummary.map((item) => item.price).reduce((prev, next) => prev + next, 0);
+      return `${state.orderSummary.map((item) => item.price).reduce((prev, next) => prev + next, 0).toLocaleString()}원`;
     },
     getOrderDescription(state) {
       if (state.orderSummary.length < 2) {
