@@ -26,12 +26,30 @@
       <p class="font-medium" data-test="mypage-phone">
         휴대전화: {{ userDetails.phone }}
       </p>
+      <button
+        class="
+          bg-red-500
+          hover:bg-red-500/75
+          active:bg-red-500/50
+          text-white
+          font-bold
+          py-2
+          px-4
+          rounded
+          w-50
+        "
+        @click="clearToken()"
+        data-test="go-to-mypage-button"
+      >
+        로그아웃
+      </button>
     </div>
   </div>
   <MenuBottom />
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import MyPageApi from '@/api/user/MyPageApi';
 import MenuBottom from '@/components/MenuBottom.vue';
 
@@ -45,7 +63,9 @@ export default {
     };
   },
 
-  methods: {},
+  methods: {
+    ...mapActions(['clearToken']),
+  },
 
   async created() {
     const apiClient = new MyPageApi(this.apiClient);

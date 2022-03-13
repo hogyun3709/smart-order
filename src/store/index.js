@@ -13,10 +13,16 @@ export default createStore({
     SET_TOKEN(state, token) {
       state.access_token = token;
     },
+    CLEAR_TOKEN(state) {
+      state.access_token = undefined;
+    },
   },
   actions: {
     setToken({ commit }, token) {
       commit('SET_TOKEN', token);
+    },
+    clearToken({ commit }) {
+      commit('CLEAR_TOKEN');
     },
   },
 });
