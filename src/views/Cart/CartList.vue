@@ -2,6 +2,9 @@
   <div class="mx-3 my-3" data-test="cart-list-container">
     <h2 class="text-xl font-bold" data-test="cart-list-title">장바구니</h2>
     <hr class="my-4" />
+    <div v-if="getCartItems.length === 0">
+      <h3>장바구니가 비었어요!</h3>
+    </div>
     <div v-if="!isLoading">
       <CartItem
         v-for="(cart, index) in getCartItems"
