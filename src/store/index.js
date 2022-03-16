@@ -11,9 +11,15 @@ export default createStore({
       return state.access_token;
     },
     getOrderTotalPrice(state) {
-      return `${state.orderSummary.map((item) => item.price).reduce((prev, next) => prev + next, 0).toLocaleString()}원`;
+      if (state.orderSummary.length < 1) {
+        return '';
+      }
+      return `${state.orderSummary.map((item) => item.price).reduce((prev, next) => prev + next, 0).toLocaleString()}원 을 결제합니다`;
     },
     getOrderDescription(state) {
+      if (state.orderSummary.length < 1) {
+        return '주문을 진행할 음료가 없어요! ';
+      }
       if (state.orderSummary.length < 2) {
         return `${state.orderSummary[0].name}`;
       }
@@ -37,7 +43,9 @@ export default createStore({
     ADD_ORDER_FROM_CART(state, cartInfo) {
       state.orderSummary.push(cartInfo);
     },
-
+    CLEAR_ORDER(state) {
+      state.orderSummary = [];
+    },
   },
   actions: {
     setToken({ commit }, token) {
@@ -51,6 +59,9 @@ export default createStore({
     },
     addOrderFromCart({ commit }, cartInfo) {
       commit('ADD_ORDER_FROM_CART', cartInfo);
+    },
+    clearOrder({ commit }) {
+      commit('CLEAR_ORDER');
     },
   },
   modules: {

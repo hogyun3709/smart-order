@@ -3,7 +3,7 @@
   <div class="grid grid-cols-6 gap-4 content-center">
     <div class="col-start-2 col-span-4">
       <h4>{{ getOrderDescription }}</h4>
-      <p>{{ getOrderTotalPrice }}을 결제합니다</p>
+      <p>{{ getOrderTotalPrice }}</p>
       <hr class="my-4" />
       <button
         class="
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import MenuBottom from '@/components/MenuBottom.vue';
 import OrderApi from '@/api/order/OrderApi';
 import ConfirmOrderCompleteDialog from '@/components/modal/OrderCompleteModal.vue';
@@ -48,10 +48,12 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['clearOrder']),
     async proceedOrder() {
       const apiClient = new OrderApi(this.apiClient);
       const response = await apiClient.createOrder();
       this.isCompleteOrder = response.data.result;
+      this.clearOrder();
     },
   },
   computed: {
