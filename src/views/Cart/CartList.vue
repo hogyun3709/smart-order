@@ -70,9 +70,9 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('cart', ['getCartItems']),
+    ...mapGetters('cart', ['getCartItems', 'getCartItemsFinalPrice']),
     finalCartItemPrice() {
-      return `전체 합계: ${this.$store.state.cart.final_price.toLocaleString()}원`;
+      return `전체 합계: ${this.getCartItemsFinalPrice.toLocaleString()}원`;
     },
   },
   async created() {

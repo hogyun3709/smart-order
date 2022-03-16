@@ -9,6 +9,9 @@ const cart = {
     getCartItems(state) {
       return state.cart_items;
     },
+    getCartItemsFinalPrice(state) {
+      return state.final_price;
+    },
   },
   mutations: {
     SET_CART_ITEM(state, item) {
