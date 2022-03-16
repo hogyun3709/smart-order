@@ -69,6 +69,9 @@ export default {
       this.$router.push('/order');
     },
   },
+  unmounted() {
+    this.$store.dispatch('cart/clearCart');
+  },
   computed: {
     ...mapGetters('cart', [
       'getCartItems',

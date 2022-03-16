@@ -15,12 +15,11 @@ const cart = {
       if (state.cart_items.length < 1) {
         return '';
       }
-      if (state.cart_items.l건ngth < 2) {
+      if (state.cart_items.length < 2) {
         return state.cart_items[0].product.nameKr;
       }
       return `${state.cart_items[0].product.nameKr}외 ${state.cart_items.length - 1}건`;
     },
-
   },
   mutations: {
     SET_CART_ITEM(state, item) {
