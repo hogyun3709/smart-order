@@ -3,7 +3,6 @@ const cart = {
   state: {
     cart_items: [],
     final_price: 0,
-    cart_items_name: '장바구니목록명',
   },
   getters: {
     getCartItems(state) {
@@ -11,6 +10,15 @@ const cart = {
     },
     getCartItemsFinalPrice(state) {
       return state.final_price;
+    },
+    getCartItemsDescription(state) {
+      if (state.cart_items.length < 1) {
+        return '';
+      }
+      if (state.cart_items.l건ngth < 2) {
+        return state.cart_items[0].product.nameKr;
+      }
+      return `${state.cart_items[0].product.nameKr}외 ${state.cart_items.length - 1}건`;
     },
 
   },
@@ -25,8 +33,9 @@ const cart = {
     SET_FINAL_PRICE(state, price) {
       state.final_price += price;
     },
-    CLEAR_FINAL_PRICE(state) {
+    CLEAR_CART(state) {
       state.final_price = 0;
+      state.cart_items = [];
     },
   },
   actions: {
@@ -39,8 +48,8 @@ const cart = {
     setFinalPrice({ commit }, price) {
       commit('SET_FINAL_PRICE', price);
     },
-    clearFinalPrice({ commit }) {
-      commit('CLEAR_FINAL_PRICE');
+    clearCart({ commit }) {
+      commit('CLEAR_CART');
     },
   },
 };

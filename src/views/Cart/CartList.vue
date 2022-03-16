@@ -63,14 +63,18 @@ export default {
   methods: {
     proceedOrder() {
       this.$store.dispatch('addOrderFromCart', {
-        name: this.$store.state.cart.cart_items_name,
-        price: this.$store.state.cart.final_price,
+        name: this.getCartItemsDescription,
+        price: this.getCartItemsFinalPrice,
       });
       this.$router.push('/order');
     },
   },
   computed: {
-    ...mapGetters('cart', ['getCartItems', 'getCartItemsFinalPrice']),
+    ...mapGetters('cart', [
+      'getCartItems',
+      'getCartItemsFinalPrice',
+      'getCartItemsDescription',
+    ]),
     finalCartItemPrice() {
       return `전체 합계: ${this.getCartItemsFinalPrice.toLocaleString()}원`;
     },

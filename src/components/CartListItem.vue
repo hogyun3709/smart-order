@@ -178,7 +178,7 @@ export default {
     this.$store.dispatch('cart/setFinalPrice', this.finalPriceNonFormat);
   },
   unmounted() {
-    this.$store.dispatch('cart/clearFinalPrice');
+    this.$store.dispatch('cart/clearCart');
   },
   computed: {
     optionPriceTotal() {

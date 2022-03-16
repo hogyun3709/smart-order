@@ -47,6 +47,9 @@ export default {
       isCompleteOrder: '',
     };
   },
+  unmounted() {
+    this.clearOrder();
+  },
   methods: {
     ...mapActions(['clearOrder']),
     async proceedOrder() {
