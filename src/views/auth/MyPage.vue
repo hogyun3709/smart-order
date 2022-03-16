@@ -43,6 +43,24 @@
       >
         로그아웃
       </button>
+      <router-link to="/order">
+        <button
+          class="
+            bg-yellow-500
+            hover:bg-yellow-500/75
+            active:bg-yellow-500/50
+            text-white
+            font-bold
+            py-2
+            px-4
+            rounded
+            w-50
+          "
+          data-test="go-to-mypage-button"
+        >
+          주문확인
+        </button>
+      </router-link>
     </div>
   </div>
   <MenuBottom />
