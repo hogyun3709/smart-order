@@ -12,6 +12,7 @@ const cart = {
     getCartItemsFinalPrice(state) {
       return state.final_price;
     },
+
   },
   mutations: {
     SET_CART_ITEM(state, item) {
@@ -24,6 +25,9 @@ const cart = {
     SET_FINAL_PRICE(state, price) {
       state.final_price += price;
     },
+    CLEAR_FINAL_PRICE(state) {
+      state.final_price = 0;
+    },
   },
   actions: {
     setCartItem({ commit }, item) {
@@ -34,6 +38,9 @@ const cart = {
     },
     setFinalPrice({ commit }, price) {
       commit('SET_FINAL_PRICE', price);
+    },
+    clearFinalPrice({ commit }) {
+      commit('CLEAR_FINAL_PRICE');
     },
   },
 };
