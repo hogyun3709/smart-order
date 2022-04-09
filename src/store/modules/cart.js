@@ -29,6 +29,9 @@ const cart = {
     REMOVE_CART_ITEM(state, index) {
       state.cart_items.splice(index, 1);
     },
+    SUBSTRACT_CART_PRICE(state, value) {
+      state.final_price -= value;
+    },
     SET_FINAL_PRICE(state, price) {
       state.final_price += price;
     },
@@ -43,6 +46,10 @@ const cart = {
     },
     removeCartItem({ commit }, index) {
       commit('REMOVE_CART_ITEM', index);
+    },
+    substractCartPrice({ commit }, value) {
+      commit('SUBSTRACT_CART_PRICE', value);
+      console.log(value);
     },
     setFinalPrice({ commit }, price) {
       commit('SET_FINAL_PRICE', price);

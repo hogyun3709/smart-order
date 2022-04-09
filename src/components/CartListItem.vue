@@ -27,7 +27,9 @@
     </div>
     <button
       class="grid col-start-7 col-span-2 justify-items-end"
-      @click="removeCartItem(index)"
+      @click="
+        [removeCartItem(index), substractCartPrice(this.finalPriceNonFormat())]
+      "
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -168,7 +170,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions('cart', ['removeCartItem']),
+    ...mapActions('cart', ['removeCartItem', 'substractCartPrice']),
 
     priceWithFormat(price) {
       return price ? `${price.toLocaleString()}원` : '';
